@@ -12,12 +12,13 @@ const openai = new OpenAIApi(configuration);
 //app.listen(8080, (req, res) => {
 //  console.log('server is open http://localhost:8080');
 //});
+
 //CORS 이슈 해결
 let corsOptions = {
-  origin: 'https://chatdog.pages.dev/',
+  origin: [process.env.CHAT_DOG_URL, process.env.LOCAL_URL],
   credentials: true,
 };
-app.use(cors());
+app.use(cors(corsOptions));
 
 //POST 요청 받을 수 있게 만듬
 app.use(express.json()); // for parsing application/json
@@ -57,22 +58,23 @@ app.post('/fortuneTell', async function (req, res) {
     },
   ];
 
-  while (userMessages.length != 0 || assistantMessages.length != 0) {
-    if (userMessages.length != 0) {
+  while (userMessages.length !== 0 || assistantMessages.length !== 0) {
+    if (userMessages.length !== 0) {
       messages.push(
         JSON.parse(
-          '{"role": "user", "content": "' +
-            String(userMessages.shift()).replace(/\n/g, '') +
-            '"}',
+          `{"role": "user", "content":"${String(userMessages.shift()).replace(
+            /\n/g,
+            '',
+          )}"}`,
         ),
       );
     }
-    if (assistantMessages.length != 0) {
+    if (assistantMessages.length !== 0) {
       messages.push(
         JSON.parse(
-          '{"role": "assistant", "content": "' +
-            String(assistantMessages.shift()).replace(/\n/g, '') +
-            '"}',
+          `{"role": "assistant", "content":"${String(
+            assistantMessages.shift(),
+          ).replace(/\n/g, '')}"}`,
         ),
       );
     }
