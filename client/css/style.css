@@ -136,6 +136,9 @@ main {
   background: rgb(186, 136, 142);
   position: relative;
 }
+.chat-window .chat-messages::-webkit-scrollbar {
+  display: none;
+}
 .chat-window .chat-messages ul {
   width: calc(100% - 20px);
   position: absolute;
