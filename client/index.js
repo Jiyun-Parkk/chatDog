@@ -1,4 +1,3 @@
-const chatWindow = document.querySelector('.chat-window');
 const messageBox = document.querySelector('.chat-messages');
 const messageList = document.querySelector('.chat-messages ul');
 const chatForm = document.querySelector('#chat');
@@ -10,10 +9,7 @@ let userMessages = [];
 let assistantMessages = [];
 let myDateTime = '';
 
-chatForm.addEventListener('submit', sendMessage);
-dateForm.addEventListener('submit', sendDate);
-
-async function sendDate(e) {
+const sendDate = async (e) => {
   e.preventDefault();
   let formData = new FormData(dateForm);
   const date = formData.get('date');
@@ -28,8 +24,9 @@ async function sendDate(e) {
 
   dateForm.style.display = 'none';
   chatForm.style.display = 'flex';
-}
-async function sendMessage(e) {
+};
+
+const sendMessage = async (e) => {
   e.preventDefault();
 
   let messageText = inputBox.value;
@@ -43,7 +40,7 @@ async function sendMessage(e) {
     spinner.style.display = 'flex';
     sendButton.disabled = true;
     const response = await fetch(
-      'https://p2zlk9ywce.execute-api.ap-northeast-2.amazonaws.com/prod/fortuneTell',
+      `https://p2zlk9ywce.execute-api.ap-northeast-2.amazonaws.com/prod/fortuneTell`,
       {
         method: 'POST',
         body: JSON.stringify({
@@ -62,7 +59,6 @@ async function sendMessage(e) {
     }
 
     const data = await response.json();
-    console.log(data);
     assistantMessages.push(data.assistant);
     const newResponse = document.createElement('li');
     newResponse.textContent = data.assistant;
@@ -73,4 +69,7 @@ async function sendMessage(e) {
   } catch (error) {
     console.error(error);
   }
-}
+};
+
+chatForm.addEventListener('submit', sendMessage);
+dateForm.addEventListener('submit', sendDate);
