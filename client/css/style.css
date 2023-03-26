@@ -4,14 +4,17 @@
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   font-family: "Gamja Flower", cursive;
 }
 
 body::-webkit-scrollbar {
   display: none;
+}
+
+#chat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 main {

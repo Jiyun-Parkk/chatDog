@@ -15,7 +15,11 @@ const openai = new OpenAIApi(configuration);
 
 //CORS 이슈 해결
 let corsOptions = {
-  origin: [process.env.CHAT_DOG_URL, process.env.LOCAL_URL],
+  origin: [
+    process.env.CHAT_DOG_URL,
+    process.env.LOCAL_URL,
+    process.env.CHAT_DOG_URL_CUSTOM,
+  ],
   credentials: true,
 };
 app.use(cors(corsOptions));
