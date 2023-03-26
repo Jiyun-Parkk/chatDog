@@ -14,7 +14,7 @@ const openai = new OpenAIApi(configuration);
 //});
 //CORS 이슈 해결
 let corsOptions = {
-  origin: 'https://chatfortune.pages.dev',
+  origin: 'https://chatdog.pages.dev/',
   credentials: true,
 };
 app.use(cors());
