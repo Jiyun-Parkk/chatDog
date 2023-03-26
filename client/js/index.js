@@ -27,7 +27,6 @@ const sendDate = async (e) => {
     myDateTime = `생년월일:${date},태어난시:${time.split(':')[0]}`;
     dateForm.style.display = 'none';
     chatForm.style.display = 'flex';
-
     const newResponse = document.createElement('li');
     newResponse.textContent = `당신의 생년월일은${date}, 태어난 시간은 ${
       time.split(':')[0]
@@ -36,6 +35,7 @@ const sendDate = async (e) => {
     messageList.appendChild(newResponse);
     newResponse.scrollIntoView();
   }
+  window.scrollTo({ top: 0, left: 0 });
 };
 
 const sendMessage = async (e) => {
