@@ -14,9 +14,6 @@ const sendDate = async (e) => {
   let formData = new FormData(dateForm);
   const date = formData.get('date');
   const time = formData.get('time');
-  let todayDateTime = new Date().toLocaleString('ko-KR', {
-    timeZone: 'Asia/Seoul',
-  });
 
   if (!date || date === '') {
     alert('생년월일을 입력해주세요');
@@ -48,7 +45,7 @@ const sendMessage = async (e) => {
   messageList.appendChild(newMessage);
   userMessages.push(messageText);
   inputBox.value = '';
-  messageText.scrollIntoView({ block: 'start' });
+  newMessage.scrollIntoView();
 
   try {
     spinner.style.display = 'flex';
