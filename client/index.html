@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <title>운세보는 챗도지</title>
+  </head>
+  <body>
+    <form id="date-form">
+      <h1>챗도지가 운세를 알려드립니다</h1>
+      <img src="./doge.png" alt="doge" />
+      <input type="date" name="date" placeholder="생년월일" />
+      <input type="time" name="time" laceholder="시간" />
+
+      <button>운세보기</button>
+    </form>
+    <form id="chat" style="display: none">
+      <div class="chat-window">
+        <div class="chat-header">
+          <h2>나는야 챗도지</h2>
+        </div>
+        <div class="chat-messages">
+          <ul>
+            <!-- messages from astrologer or user -->
+          </ul>
+          <div id="loader">
+            <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+          </div>
+        </div>
+        <div class="chat-input">
+          <input type="text" placeholder="Type your message..." />
+          <button>Send</button>
+        </div>
+      </div>
+    </form>
+    <script src="./index.js"></script>
+  </body>
+</html>
