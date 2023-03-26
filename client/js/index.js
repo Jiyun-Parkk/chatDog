@@ -84,7 +84,7 @@ const sendMessage = async (e) => {
     console.error(error);
     const errorMessage = document.createElement('li');
     errorMessage.textContent = '요청시간이 초과되었어요! 새로고침 해주세요';
-    newResponse.classList.add('answer');
+    errorMessage.classList.add('answer');
     dim.style.display = 'none';
     messageList.appendChild(errorMessage);
   }
