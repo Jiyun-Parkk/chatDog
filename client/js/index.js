@@ -14,15 +14,28 @@ const sendDate = async (e) => {
   let formData = new FormData(dateForm);
   const date = formData.get('date');
   const time = formData.get('time');
+  let todayDateTime = new Date().toLocaleString('ko-KR', {
+    timeZone: 'Asia/Seoul',
+  });
 
   if (!date || date === '') {
     alert('생년월일을 입력해주세요');
   } else if (!time || time === '') {
     alert('태어난 시간을 입력해주세요');
+  } else if (new Date(date) > new Date()) {
+    alert('생년월일이 오늘보다 미래입니다!');
   } else {
     myDateTime = `생년월일:${date},태어난시:${time.split(':')[0]}`;
     dateForm.style.display = 'none';
     chatForm.style.display = 'flex';
+
+    const newResponse = document.createElement('li');
+    newResponse.textContent = `당신의 생년월일은${date}, 태어난 시간은 ${
+      time.split(':')[0]
+    }시 군요! 운세에 대해서 어떤 것이든 물어보세요!`;
+    newResponse.classList.add('answer');
+    messageList.appendChild(newResponse);
+    newResponse.scrollIntoView();
   }
 };
 
@@ -35,6 +48,7 @@ const sendMessage = async (e) => {
   messageList.appendChild(newMessage);
   userMessages.push(messageText);
   inputBox.value = '';
+  messageText.scrollIntoView({ block: 'start' });
 
   try {
     spinner.style.display = 'flex';
@@ -66,8 +80,14 @@ const sendMessage = async (e) => {
     spinner.style.display = 'none';
     messageList.appendChild(newResponse);
     sendButton.disabled = false;
+    newResponse.scrollIntoView();
   } catch (error) {
     console.error(error);
+    const errorMessage = document.createElement('li');
+    errorMessage.textContent = '요청시간이 초과되었어요! 새로고침 해주세요';
+    newResponse.classList.add('answer');
+    spinner.style.display = 'none';
+    messageList.appendChild(errorMessage);
   }
 };
 

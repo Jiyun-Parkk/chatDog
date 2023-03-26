@@ -99,7 +99,7 @@ main {
 
 #chat {
   width: 100%;
-  display: flex;
+  display: none;
   justify-content: center;
   flex-direction: column;
   align-items: center;
@@ -153,14 +153,6 @@ main {
   align-self: flex-start;
   background: #fff;
 }
-.chat-window .chat-messages #loader {
-  display: none;
-  padding: 20px;
-  justify-content: center;
-}
-.chat-window .chat-messages #loader .fa-spinner {
-  font-size: 24px;
-}
 .chat-window .chat-input {
   display: flex;
   padding: 10px;
@@ -182,6 +174,15 @@ main {
 }
 .chat-window .chat-input button:hover {
   background-color: #555;
+}
+
+#loader {
+  display: none;
+  padding: 20px;
+  justify-content: center;
+}
+#loader .fa-spinner {
+  font-size: 24px;
 }
 
 /*# sourceMappingURL=style.css.map */

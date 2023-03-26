@@ -101,7 +101,7 @@ main {
 
 #chat {
   width: 100%;
-  display: flex;
+  display: none;
   justify-content: center;
   flex-direction: column;
   align-items: center;
@@ -156,15 +156,6 @@ main {
         }
       }
     }
-
-    #loader {
-      display: none;
-      padding: 20px;
-      justify-content: center;
-      .fa-spinner {
-        font-size: 24px;
-      }
-    }
   }
 
   .chat-input {
@@ -191,5 +182,14 @@ main {
         background-color: #555;
       }
     }
+  }
+}
+
+#loader {
+  display: none;
+  padding: 20px;
+  justify-content: center;
+  .fa-spinner {
+    font-size: 24px;
   }
 }
