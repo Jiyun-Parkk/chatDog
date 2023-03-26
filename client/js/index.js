@@ -1,10 +1,12 @@
+'use strict';
+
 const messageBox = document.querySelector('.chat-messages');
 const messageList = document.querySelector('.chat-messages ul');
 const chatForm = document.querySelector('#chat');
 const dateForm = document.querySelector('#date-form');
 const inputBox = document.querySelector('.chat-input input[type="text"]');
 const sendButton = document.querySelector('.chat-input button');
-const spinner = document.querySelector('#loader');
+const dim = document.querySelector('#dim');
 let userMessages = [];
 let assistantMessages = [];
 let myDateTime = '';
@@ -48,7 +50,7 @@ const sendMessage = async (e) => {
   newMessage.scrollIntoView();
 
   try {
-    spinner.style.display = 'flex';
+    dim.style.display = 'flex';
     sendButton.disabled = true;
     const response = await fetch(
       `https://p2zlk9ywce.execute-api.ap-northeast-2.amazonaws.com/prod/fortuneTell`,
@@ -74,7 +76,7 @@ const sendMessage = async (e) => {
     const newResponse = document.createElement('li');
     newResponse.textContent = data.assistant;
     newResponse.classList.add('answer');
-    spinner.style.display = 'none';
+    dim.style.display = 'none';
     messageList.appendChild(newResponse);
     sendButton.disabled = false;
     newResponse.scrollIntoView();
@@ -83,7 +85,7 @@ const sendMessage = async (e) => {
     const errorMessage = document.createElement('li');
     errorMessage.textContent = '요청시간이 초과되었어요! 새로고침 해주세요';
     newResponse.classList.add('answer');
-    spinner.style.display = 'none';
+    dim.style.display = 'none';
     messageList.appendChild(errorMessage);
   }
 };
