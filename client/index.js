@@ -62,6 +62,7 @@ async function sendMessage(e) {
     }
 
     const data = await response.json();
+    console.log(data);
     assistantMessages.push(data.assistant);
     const newResponse = document.createElement('li');
     newResponse.textContent = data.assistant;
