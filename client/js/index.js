@@ -19,11 +19,11 @@ const sendDate = async (e) => {
     alert('생년월일을 입력해주세요');
   } else if (!time || time === '') {
     alert('태어난 시간을 입력해주세요');
+  } else {
+    myDateTime = `생년월일:${date},태어난시:${time.split(':')[0]}`;
+    dateForm.style.display = 'none';
+    chatForm.style.display = 'flex';
   }
-  myDateTime = `생년월일:${date},태어난시:${time.split(':')[0]}`;
-
-  dateForm.style.display = 'none';
-  chatForm.style.display = 'flex';
 };
 
 const sendMessage = async (e) => {
