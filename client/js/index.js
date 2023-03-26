@@ -7,6 +7,8 @@ const dateForm = document.querySelector('#date-form');
 const inputBox = document.querySelector('.chat-input input[type="text"]');
 const sendButton = document.querySelector('.chat-input button');
 const dim = document.querySelector('#dim');
+const title = document.querySelector('#title');
+const main = document.querySelector('main');
 let userMessages = [];
 let assistantMessages = [];
 let myDateTime = '';
@@ -27,6 +29,10 @@ const sendDate = async (e) => {
     myDateTime = `생년월일:${date},태어난시:${time.split(':')[0]}`;
     dateForm.style.display = 'none';
     chatForm.style.display = 'flex';
+    title.style.display = 'none';
+    main.style.width = '100%';
+    main.style.padding = 0;
+
     const newResponse = document.createElement('li');
     newResponse.textContent = `당신의 생년월일은${date}, 태어난 시간은 ${
       time.split(':')[0]
@@ -86,6 +92,7 @@ const sendMessage = async (e) => {
     errorMessage.textContent = '요청시간이 초과되었어요! 새로고침 해주세요';
     errorMessage.classList.add('answer');
     dim.style.display = 'none';
+    errorMessage.scrollIntoView();
     messageList.appendChild(errorMessage);
   }
 };

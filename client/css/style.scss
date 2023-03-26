@@ -121,16 +121,19 @@ main {
   height: 600px;
   background-color: #fff;
   border: 1px solid #ccc;
-  border-radius: 10px;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
+  position: relative;
   .chat-header {
+    position: sticky;
+    top: 0;
+    left: 0;
     background-color: #444;
     color: #fff;
     padding: 10px;
     font-size: 24px;
     text-align: center;
+    z-index: 20;
   }
   .chat-messages {
     flex: 1;
