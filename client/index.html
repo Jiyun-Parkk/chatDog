@@ -23,7 +23,7 @@
       href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/style.css?v=0" />
     <script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5610907263411318"
@@ -33,67 +33,65 @@
     <title>운세보는 강아지 챗독</title>
   </head>
   <body>
-    <div id="chat-container">
-      <main>
-        <h1 id="title">
-          <span>운세 알려주는 강아지</span>
-          <span>
-            챗독
-            <img src="./image/paw.png" alt="발바닥"
-          /></span>
-        </h1>
-        <form id="date-form">
-          <img src="./image/doge.png" alt="doge" id="main__image" />
-          <div class="dateForm__input">
-            <div>
-              <label for="date">생년월일</label>
-              <input type="date" name="date" placeholder="생년월일" />
-            </div>
-            <div>
-              <label for="time">태어난시</label>
-              <input type="time" name="time" laceholder="시간" />
-            </div>
+    <main>
+      <h1 id="title">
+        <span>운세 알려주는 강아지</span>
+        <span>
+          챗독
+          <img src="./image/paw.png" alt="발바닥"
+        /></span>
+      </h1>
+      <form id="date-form">
+        <img src="./image/doge.png" alt="doge" id="main__image" />
+        <div class="dateForm__input">
+          <div>
+            <label for="date">생년월일</label>
+            <input type="date" name="date" placeholder="생년월일" />
           </div>
-          <button>운세보기</button>
-        </form>
-        <form id="chat">
-          <div class="chat-window">
-            <div class="chat-header">
-              <h2>나는야 챗독</h2>
-            </div>
-            <div class="chat-messages">
-              <ul>
-                <!-- messages from astrologer or user -->
-              </ul>
-              <div id="dim">
-                <div id="loader">
-                  <i class="fa-solid fa-spinner fa-spin-pulse"></i>
-                </div>
-                <p>챗독은 귀여운 강아지라서 <br />생각하는 시간이 필요해요!</p>
+          <div>
+            <label for="time">태어난시</label>
+            <input type="time" name="time" laceholder="시간" />
+          </div>
+        </div>
+        <button>운세보기</button>
+      </form>
+      <form id="chat">
+        <div class="chat-window">
+          <div class="chat-header">
+            <h2>나는야 챗독</h2>
+          </div>
+          <div class="chat-messages">
+            <ul>
+              <!-- messages from astrologer or user -->
+            </ul>
+            <div id="dim">
+              <div id="loader">
+                <i class="fa-solid fa-spinner fa-spin-pulse"></i>
               </div>
-            </div>
-            <div class="chat-input">
-              <input type="text" placeholder="Type your message..." />
-              <button>Send</button>
+              <p>챗독은 귀여운 강아지라서 <br />생각하는 시간이 필요해요!</p>
             </div>
           </div>
-        </form>
-      </main>
-      <div class="ad-banner">
-        <ins
-          class="kakao_ad_area"
-          style="display: none"
-          data-ad-unit="DAN-iHu4K4WXJEEUcnyr"
-          data-ad-width="320"
-          data-ad-height="100"
-        ></ins>
-      </div>
+          <div class="chat-input">
+            <input type="text" placeholder="Type your message..." />
+            <button>Send</button>
+          </div>
+        </div>
+      </form>
+    </main>
+    <div class="ad-banner">
+      <ins
+        class="kakao_ad_area"
+        style="display: none"
+        data-ad-unit="DAN-iHu4K4WXJEEUcnyr"
+        data-ad-width="320"
+        data-ad-height="100"
+      ></ins>
     </div>
     <script
       type="text/javascript"
       src="//t1.daumcdn.net/kas/static/ba.min.js"
       async
     ></script>
-    <script src="./js/index.js"></script>
+    <script src="./js/index.js?v=0"></script>
   </body>
 </html>

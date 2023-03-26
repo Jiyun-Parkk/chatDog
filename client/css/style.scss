@@ -10,24 +10,20 @@ body {
 body::-webkit-scrollbar {
   display: none;
 }
-#chat-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
 main {
   width: 25%;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 30px 0;
+  padding: 30px 10px;
+  margin: 0 auto;
 
-  @media (max-width: 1080px) {
+  @media (max-width: 1080px) and (min-width: 539px) {
     width: 50%;
   }
   @media (max-width: 540px) {
-    min-width: calc(100vw - 30px);
+    width: 95%;
   }
 }
 
@@ -51,6 +47,7 @@ main {
 }
 
 #date-form {
+  width: 100%;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -63,6 +60,7 @@ main {
   }
   .dateForm__input {
     display: flex;
+    flex-direction: column;
     gap: 10px;
     width: 100%;
     justify-content: space-between;
@@ -96,6 +94,12 @@ main {
     cursor: pointer;
     color: #fff;
     font-weight: 600;
+  }
+
+  @media (max-width: 540px) {
+    .dateForm__input {
+      flex-direction: column;
+    }
   }
 }
 
