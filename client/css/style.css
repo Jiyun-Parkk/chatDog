@@ -201,6 +201,6 @@ main {
   border-radius: 50%;
   z-index: 30;
   cursor: pointer;
-  background: url("../image/kakao.png") no-repeat center/cover; }
+  background: url("./../image/kakao.png") no-repeat center/cover; }
 
 /*# sourceMappingURL=style.css.map */
