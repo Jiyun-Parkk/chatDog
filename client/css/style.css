@@ -191,4 +191,16 @@ main {
 .ad-banner {
   width: 100%; }
 
+#kakao-share {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  border: none;
+  bottom: 30px;
+  right: 30px;
+  border-radius: 50%;
+  z-index: 30;
+  cursor: pointer;
+  background: url("../image/kakao.png") no-repeat center/cover; }
+
 /*# sourceMappingURL=style.css.map */
