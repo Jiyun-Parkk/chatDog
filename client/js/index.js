@@ -13,6 +13,21 @@ let userMessages = [];
 let assistantMessages = [];
 let myDateTime = '';
 
+const createChatDogAnswer = (answerText) => {
+  const newResponse = document.createElement('li');
+  const ResponseText = document.createElement('p');
+  const profile = document.createElement('img');
+  profile.classList.add('profile');
+  profile.src = './image/doge.png';
+  profile.alt = 'chatdog profile';
+  newResponse.appendChild(profile);
+  newResponse.appendChild(ResponseText);
+  newResponse.classList.add('answer');
+  ResponseText.textContent = answerText;
+  messageList.appendChild(newResponse);
+  return ResponseText;
+};
+
 const sendDate = async (e) => {
   e.preventDefault();
   let formData = new FormData(dateForm);
@@ -32,14 +47,12 @@ const sendDate = async (e) => {
     title.style.display = 'none';
     main.style.width = '100%';
     main.style.padding = 0;
-
-    const newResponse = document.createElement('li');
-    newResponse.textContent = `당신의 생년월일은${date}, 태어난 시간은 ${
-      time.split(':')[0]
-    }시 군요! 운세에 대해서 어떤 것이든 물어보세요!`;
-    newResponse.classList.add('answer');
-    messageList.appendChild(newResponse);
-    newResponse.scrollIntoView();
+    const chatdog = createChatDogAnswer(
+      `당신의 생년월일은${date}, 태어난 시간은 ${
+        time.split(':')[0]
+      }시 군요! 운세에 대해서 어떤 것이든 물어보세요!`,
+    );
+    chatdog.scrollIntoView();
   }
   window.scrollTo({ top: 0, left: 0 });
 };
@@ -49,6 +62,7 @@ const sendMessage = async (e) => {
 
   let messageText = inputBox.value;
   const newMessage = document.createElement('li');
+
   newMessage.textContent = messageText;
   messageList.appendChild(newMessage);
   userMessages.push(messageText);
@@ -79,21 +93,18 @@ const sendMessage = async (e) => {
 
     const data = await response.json();
     assistantMessages.push(data.assistant);
-    const newResponse = document.createElement('li');
-    newResponse.textContent = data.assistant;
-    newResponse.classList.add('answer');
     dim.style.display = 'none';
-    messageList.appendChild(newResponse);
+    const chatdog = createChatDogAnswer(data.assistant);
     sendButton.disabled = false;
-    newResponse.scrollIntoView();
+    chatdog.scrollIntoView();
   } catch (error) {
     console.error(error);
-    const errorMessage = document.createElement('li');
-    errorMessage.textContent = '요청시간이 초과되었어요! 새로고침 해주세요';
-    errorMessage.classList.add('answer');
     dim.style.display = 'none';
-    errorMessage.scrollIntoView();
-    messageList.appendChild(errorMessage);
+    const chatdog = createChatDogAnswer(
+      '요청시간이 초과되었어요! 새로고침 해주세요',
+    );
+    sendButton.disabled = true;
+    chatdog.scrollIntoView();
   }
 };
 
