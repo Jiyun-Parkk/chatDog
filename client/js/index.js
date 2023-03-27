@@ -18,7 +18,8 @@ const createChatDogAnswer = (answerText) => {
   const ResponseText = document.createElement('p');
   const profile = document.createElement('img');
   profile.classList.add('profile');
-  profile.src = './image/doge.png';
+  profile.src =
+    'https://github.com/Jiyun1937/chatDog/blob/master/client/image/doge.png?raw=true';
   profile.alt = 'chatdog profile';
   newResponse.appendChild(profile);
   newResponse.appendChild(ResponseText);
