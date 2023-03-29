@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-User-Agent : Googlebot
+User-Agent : Google
 Allow : /
-User-Agent : Yetibot
+User-Agent : Yeti
 Allow : /
