@@ -73,20 +73,17 @@ const sendMessage = async (e) => {
   try {
     dim.style.display = 'flex';
     sendButton.disabled = true;
-    const response = await fetch(
-      `https://p2zlk9ywce.execute-api.ap-northeast-2.amazonaws.com/prod/fortuneTell`,
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          myDateTime,
-          userMessages,
-          assistantMessages,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    const response = await fetch(`./../image/doge.png`, {
+      method: 'POST',
+      body: JSON.stringify({
+        myDateTime,
+        userMessages,
+        assistantMessages,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
       },
-    );
+    });
 
     if (!response.ok) {
       throw new Error('Network response was not ok');
