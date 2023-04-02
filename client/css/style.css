@@ -1,1 +1,226 @@
-*{margin:0;padding:0}body{font-family:"Gamja Flower",cursive}body::-webkit-scrollbar{display:none}main{width:25%;display:flex;flex-direction:column;gap:20px;padding:30px 10px;margin:0 auto}@media(max-width: 1080px)and (min-width: 539px){main{width:50%}}@media(max-width: 540px){main{width:95%}}#title{display:flex;flex-direction:column;gap:10px;align-items:center;white-space:nowrap}#title span:nth-child(1){font-size:1.8rem}#title span:nth-child(2){display:flex;align-items:center}#title span:nth-child(2) img{width:30px}#date-form{width:100%;flex:1;display:flex;flex-direction:column;align-items:center;gap:30px}#date-form #main__image{width:100%;border-radius:20px}#date-form .dateForm__input{display:flex;flex-direction:column;gap:10px;width:100%;justify-content:space-between}#date-form .dateForm__input div{display:flex;flex-direction:column;align-items:center;flex-basis:50%;gap:10px}#date-form .dateForm__input div label{font-size:1.2rem}#date-form .dateForm__input div input{width:calc(100% - 20px);padding:10px;border-radius:5px;border:1px solid #000}#date-form button{width:100%;padding:10px;font-size:1.3rem;background-color:#ba888e;border:none;border-radius:10px;cursor:pointer;color:#fff;font-weight:600}@media(max-width: 540px){#date-form .dateForm__input{flex-direction:column}}#chat{width:100%;display:none;justify-content:center;flex-direction:column;align-items:center}#chat button:disabled{background-color:gray;cursor:not-allowed}.chat-window{width:100%;height:calc(100vh - 100px);background-color:#fff;border:1px solid #ccc;display:flex;flex-direction:column;position:relative}.chat-window .chat-header{width:100%;position:sticky;top:0;left:0;background-color:#444;color:#fff;padding:10px;font-size:24px;text-align:center;z-index:20}.chat-window .chat-messages{flex:1;overflow:auto;border-bottom:1px solid gray;background:#ba888e;position:relative}.chat-window .chat-messages::-webkit-scrollbar{display:none}.chat-window .chat-messages ul{width:calc(100% - 20px);position:absolute;top:0;left:0;padding:10px;list-style-type:none;margin:0;display:flex;flex-direction:column;gap:10px}.chat-window .chat-messages ul li{padding:10px;border-radius:10px;background-color:#ff0;width:-moz-fit-content;width:fit-content;max-width:60%;align-self:flex-end;font-size:1.2rem}.chat-window .chat-messages ul li.answer{align-self:flex-start;display:flex;gap:10px;background:none}.chat-window .chat-messages ul li.answer p{background:#fff;padding:10px;border-radius:10px;white-space:break-spaces}.chat-window .chat-messages ul li.answer img{width:30px;height:30px;border-radius:50%}.chat-window .chat-messages ul li.answer .copy{cursor:pointer;align-self:flex-end;padding:5px}@media(max-width: 750px){.chat-window .chat-messages ul li{max-width:80%}}.chat-window .chat-input{display:flex;padding:10px}.chat-window .chat-input input[type=text]{flex:1;padding:10px;border:none;border-radius:5px;margin-right:10px}.chat-window .chat-input button{background-color:#444;color:#fff;border:none;border-radius:5px;padding:10px;cursor:pointer}.chat-window .chat-input button:hover{background-color:#555}#loader{display:flex;color:#fff;padding:20px;justify-content:center}#loader .fa-spinner{font-size:24px}#dim{display:none;position:sticky;flex-direction:column;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);justify-content:center;color:#fff;align-items:center;font-size:1.3rem}.ad-banner{width:100%}#kakao-share{width:50px;height:50px;position:fixed;border:none;bottom:30px;right:30px;border-radius:50%;z-index:30;cursor:pointer;background:url("./../image/kakao.png") no-repeat center/cover}.copy_check{position:fixed;top:50%;left:50%;background:rgba(0,0,0,.7);color:#fff;font-weight:600;padding:5px;border-radius:5px;display:none}
+* {
+  margin: 0;
+  padding: 0; }
+
+body {
+  font-family: 'Gamja Flower', cursive; }
+
+body::-webkit-scrollbar {
+  display: none; }
+
+main {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px 10px;
+  margin: 0 auto; }
+  @media (max-width: 1080px) and (min-width: 539px) {
+    main {
+      width: 50%; } }
+  @media (max-width: 540px) {
+    main {
+      width: 95%; } }
+
+#title {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  white-space: nowrap; }
+  #title span:nth-child(1) {
+    font-size: 1.8rem; }
+  #title span:nth-child(2) {
+    display: flex;
+    align-items: center; }
+    #title span:nth-child(2) img {
+      width: 30px; }
+
+#date-form {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px; }
+  #date-form #main__image {
+    width: 100%;
+    border-radius: 20px; }
+  #date-form .dateForm__input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    justify-content: space-between; }
+    #date-form .dateForm__input div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-basis: 50%;
+      gap: 10px; }
+      #date-form .dateForm__input div label {
+        font-size: 1.2rem; }
+      #date-form .dateForm__input div input {
+        width: calc(100% - 20px);
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #000; }
+  #date-form button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.3rem;
+    background-color: #ba888e;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 600; }
+  @media (max-width: 540px) {
+    #date-form .dateForm__input {
+      flex-direction: column; } }
+
+#chat {
+  width: 100%;
+  display: none;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center; }
+  #chat button:disabled {
+    background-color: gray;
+    cursor: not-allowed; }
+
+.chat-window {
+  width: 100%;
+  height: calc(100vh - 100px);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  position: relative; }
+  .chat-window .chat-header {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    left: 0;
+    background-color: #444;
+    color: #fff;
+    padding: 10px;
+    font-size: 24px;
+    text-align: center;
+    z-index: 20; }
+  .chat-window .chat-messages {
+    flex: 1;
+    overflow: auto;
+    border-bottom: 1px solid gray;
+    background: #ba888e;
+    position: relative; }
+    .chat-window .chat-messages::-webkit-scrollbar {
+      display: none; }
+    .chat-window .chat-messages ul {
+      width: calc(100% - 20px);
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 10px;
+      list-style-type: none;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px; }
+      .chat-window .chat-messages ul li {
+        padding: 10px;
+        border-radius: 10px;
+        background-color: yellow;
+        width: fit-content;
+        max-width: 60%;
+        align-self: flex-end;
+        font-size: 1.2rem; }
+        .chat-window .chat-messages ul li.answer {
+          align-self: flex-start;
+          display: flex;
+          gap: 10px;
+          background: none; }
+          .chat-window .chat-messages ul li.answer p {
+            background: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            white-space: break-spaces; }
+          .chat-window .chat-messages ul li.answer img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%; }
+          .chat-window .chat-messages ul li.answer .copy {
+            cursor: pointer;
+            align-self: flex-end;
+            padding: 5px; }
+    @media (max-width: 750px) {
+      .chat-window .chat-messages ul li {
+        max-width: 80%; } }
+  .chat-window .chat-input {
+    display: flex;
+    padding: 10px; }
+    .chat-window .chat-input input[type='text'] {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      margin-right: 10px; }
+    .chat-window .chat-input button {
+      background-color: #444;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      cursor: pointer; }
+      .chat-window .chat-input button:hover {
+        background-color: #555; }
+
+#loader {
+  display: flex;
+  color: #fff;
+  padding: 20px;
+  justify-content: center; }
+  #loader .fa-spinner {
+    font-size: 24px; }
+
+#dim {
+  display: none;
+  position: sticky;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  color: #fff;
+  align-items: center;
+  font-size: 1.3rem; }
+
+.ad-banner {
+  width: 100%; }
+
+#kakao-share {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  border: none;
+  bottom: 30px;
+  right: 30px;
+  border-radius: 50%;
+  z-index: 30;
+  cursor: pointer;
+  background: url("./../image/kakao.png") no-repeat center/cover; }
+
+.copy_check {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font-weight: 600;
+  padding: 5px;
+  border-radius: 5px;
+  display: none; }
+
+/*# sourceMappingURL=style.css.map */
