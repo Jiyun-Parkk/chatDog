@@ -164,8 +164,9 @@ main {
         border-radius: 10px;
         background-color: yellow;
         width: fit-content;
-        max-width: 250px;
+        max-width: 60%;
         align-self: flex-end;
+        font-size: 1.2rem;
 
         &.answer {
           align-self: flex-start;
@@ -177,6 +178,7 @@ main {
             background: #fff;
             padding: 10px;
             border-radius: 10px;
+            white-space: break-spaces;
           }
 
           img {
@@ -184,6 +186,20 @@ main {
             height: 30px;
             border-radius: 50%;
           }
+
+          .copy {
+            cursor: pointer;
+            align-self: flex-end;
+            padding: 5px;
+          }
+        }
+      }
+    }
+
+    @media (max-width: 750px) {
+      ul {
+        li {
+          max-width: 80%;
         }
       }
     }
@@ -257,4 +273,16 @@ main {
   z-index: 30;
   cursor: pointer;
   background: url('./../image/kakao.png') no-repeat center / cover;
+}
+
+.copy_check {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font-weight: 600;
+  padding: 5px;
+  border-radius: 5px;
+  display: none;
 }

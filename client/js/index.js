@@ -1,6 +1,5 @@
 'use strict';
 
-const messageBox = document.querySelector('.chat-messages');
 const messageList = document.querySelector('.chat-messages ul');
 const chatForm = document.querySelector('#chat');
 const dateForm = document.querySelector('#date-form');
@@ -9,22 +8,44 @@ const sendButton = document.querySelector('.chat-input button');
 const dim = document.querySelector('#dim');
 const title = document.querySelector('#title');
 const main = document.querySelector('main');
+const copyCheck = document.querySelector('.copy_check');
 let userMessages = [];
 let assistantMessages = [];
 let myDateTime = '';
 
 const createChatDogAnswer = (answerText) => {
+  dim.style.display = 'none';
   const newResponse = document.createElement('li');
   const ResponseText = document.createElement('p');
   const profile = document.createElement('img');
+  const copyIcon = document.createElement('div');
   profile.classList.add('profile');
   profile.src = './image/doge.png';
   profile.alt = 'chatdog profile';
+  copyIcon.classList.add('copy');
+  copyIcon.innerHTML = '<i class="fa-solid fa-clone"></i>';
   newResponse.appendChild(profile);
   newResponse.appendChild(ResponseText);
+  newResponse.appendChild(copyIcon);
   newResponse.classList.add('answer');
-  ResponseText.textContent = answerText;
+  ResponseText.innerHTML = answerText;
   messageList.appendChild(newResponse);
+
+  copyIcon.addEventListener('click', () => {
+    const tween = new TimelineMax();
+    //const text = answerText.replaceAll('<br />','')
+    window.navigator.clipboard.writeText(answerText);
+    tween
+      .fromTo(
+        copyCheck,
+        0.5,
+        { y: -10, opacity: 0, display: 'none' },
+        { y: 0, opacity: 1, display: 'block' },
+      )
+      .to(copyCheck, 0.5, { opacity: 0 })
+      .to(copyCheck, 0, { display: 'none' });
+  });
+
   return ResponseText;
 };
 
@@ -73,6 +94,7 @@ const sendMessage = async (e) => {
     dim.style.display = 'flex';
     sendButton.disabled = true;
     const response = await fetch(
+      //`http://localhost:8080/fortuneTell`,
       `https://p2zlk9ywce.execute-api.ap-northeast-2.amazonaws.com/prod/fortuneTell`,
       {
         method: 'POST',
@@ -93,13 +115,11 @@ const sendMessage = async (e) => {
 
     const data = await response.json();
     assistantMessages.push(data.assistant);
-    dim.style.display = 'none';
     const chatdog = createChatDogAnswer(data.assistant);
     sendButton.disabled = false;
     chatdog.scrollIntoView();
   } catch (error) {
     console.error(error);
-    dim.style.display = 'none';
     const chatdog = createChatDogAnswer(
       '요청시간이 초과되었어요! 새로고침 해주세요',
     );
