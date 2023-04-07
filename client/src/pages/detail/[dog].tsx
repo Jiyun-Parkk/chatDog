@@ -1,15 +1,19 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { use, useEffect } from 'react';
 import styled from 'styled-components';
 import { CHAT } from '@/consts/chatType';
 import Image from 'next/image';
-import { Button, TextField } from '@mui/material';
+import { Button, FormHelperText, TextField } from '@mui/material';
 import { chatDogList } from '@/consts/chatDogInfo';
 import { Title } from '@/components';
+import { useForm } from 'react-hook-form';
+import { FortuneFormType } from '@/types';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { DateTime } from '@/store/dateTime';
 
 const Container = styled.section<{ route: string }>`
   padding: 90px 0 30px;
-  width: 60%;
+  width: 40%;
   position: relative;
   margin: 0 auto;
   img {
@@ -45,6 +49,9 @@ const Container = styled.section<{ route: string }>`
     }
   }
 
+  @media (max-width: 1024px) {
+    width: 60%;
+  }
   @media (max-width: 750px) {
     width: 85%;
   }
@@ -52,8 +59,22 @@ const Container = styled.section<{ route: string }>`
 
 const Detail = () => {
   const router = useRouter();
+  const setDateTime = useSetRecoilState(DateTime);
   const dog = router.query.dog as string;
   const dogInfo = chatDogList.filter((chatdog) => chatdog.title === dog)[0];
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FortuneFormType>();
+  const handleSubmitFortune = (value: FortuneFormType) => {
+    const getTime = value.time.split(':');
+    setDateTime((prev) => {
+      return { ...prev, date: value.date, time: `${getTime[0]}시 ${getTime[1]}분` };
+    });
+    router.push(`/chat/${dog}`);
+  };
+
   return (
     <Container route={dog}>
       {dog && (
@@ -66,10 +87,27 @@ const Detail = () => {
             ))}
           </article>
           {dog === CHAT.FORTUNE ? (
-            <form>
-              <TextField type="date" />
-              <TextField type="time" />
-              <Button>{dogInfo.keyword} 물어보러 가기</Button>
+            <form onSubmit={handleSubmit(handleSubmitFortune)}>
+              <TextField
+                type="date"
+                {...register('date', {
+                  required: '날짜를 입력해 주세요',
+                  validate: {
+                    errorDate: (date: string) => {
+                      return new Date() > new Date(date);
+                    },
+                  },
+                })}
+              />
+              <TextField type="time" {...register('time', { required: '시간을 입력해 주세요' })} />
+              <FormHelperText error>
+                {errors.date
+                  ? errors.date.type === 'errorDate'
+                    ? '날짜가 지금보다 미래입니다'
+                    : errors.date?.message
+                  : errors.time?.message}
+              </FormHelperText>
+              <Button type="submit">{dogInfo.keyword} 물어보러 가기</Button>
             </form>
           ) : (
             <Button>{dogInfo.keyword} 물어보러 가기</Button>
