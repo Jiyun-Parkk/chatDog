@@ -6,14 +6,18 @@ import { MdArrowBackIosNew } from 'react-icons/md';
 import { CHAT } from '@/consts/chatType';
 import { SlPaperPlane } from 'react-icons/sl';
 import { useForm } from 'react-hook-form';
-
+import Image from 'next/image';
 const Chatting = styled.section`
+  position: relative;
+  overflow: hidden;
   .chat-header {
     display: flex;
     align-items: center;
     background: rgb(182, 46, 63);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    position: relative;
+    position: sticky;
+    top: 0;
+    left: 0;
     .chat-header__backbtn {
       position: absolute;
       top: 0;
@@ -31,9 +35,58 @@ const Chatting = styled.section`
     }
   }
   .chat-window {
+    overflow: auto;
     width: 100%;
     height: calc(100vh - 224px);
     background: rgba(182, 46, 63);
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 20px;
+      li {
+        width: 50%;
+        text-align: justify;
+        word-break: break-all;
+        p {
+          background: #fff;
+          padding: 10px;
+          border-radius: 20px;
+        }
+        &.assistant {
+          display: flex;
+          gap: 10px;
+          img {
+            border-radius: 20px;
+            background: skyblue;
+          }
+          p {
+            background: lightyellow;
+          }
+        }
+        &.user {
+          align-self: flex-end;
+        }
+      }
+    }
+
+    @media (max-width: 1024px) {
+      ul {
+        li {
+          width: 70%;
+        }
+      }
+    }
+    @media (max-width: 750px) {
+      ul {
+        li {
+          width: 80%;
+        }
+      }
+    }
   }
   form {
     width: 100%;
@@ -72,7 +125,23 @@ const Chat = () => {
         <h2>{dog && dog.toUpperCase()} DOG</h2>
       </section>
       <section className="chat-window">
-        <ul></ul>
+        <ul>
+          <li className="assistant">
+            <Image src="/static/images/profile.png" width={40} height={40} alt="profile" priority />
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis earum laudantium
+              optio nulla neque dolorum corrupti consectetur, magni sed odio accusantium iure, totam
+              praesentium aliquid exercitationem fugit dolorem necessitatibus vero?
+            </p>
+          </li>
+          <li className="user">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis earum laudantium
+              optio nulla neque dolorum corrupti consectetur, magni sed odio accusantium iure, totam
+              praesentium aliquid exercitationem fugit dolorem necessitatibus vero?
+            </p>
+          </li>
+        </ul>
       </section>
       <form onSubmit={handleSubmit(handleSubmitChat)}>
         <input type="text" {...register('chat')} placeholder={dog && chatInfo[dog].placeholder} />
