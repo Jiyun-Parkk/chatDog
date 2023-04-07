@@ -9,12 +9,13 @@ const CustomFooter = styled.footer`
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 0.9rem;
 `;
 
 export const Footer = () => {
   return (
     <CustomFooter>
-      <p>© 참치타워</p>
+      <p>© 2023 참치타워.All right reserved.</p>
     </CustomFooter>
   );
 };
