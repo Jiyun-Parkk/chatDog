@@ -4,8 +4,10 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { Button } from '@mui/material';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
+import { CHAT } from '@/consts/chatType';
 
 const Container = styled.section`
+  padding-top: 60px;
   ul {
     margin: 0 auto;
     width: 100%;
@@ -93,7 +95,7 @@ export default function Home() {
                 </div>
                 <p>{list.explain}</p>
                 <Button onClick={() => handleClickBanner(list.path)}>
-                  {list.go} 물어보러 가기 <BsFillArrowRightCircleFill />{' '}
+                  {list.go} 물어보러 가기 <BsFillArrowRightCircleFill />
                 </Button>
               </article>
             </li>
@@ -106,7 +108,7 @@ export default function Home() {
 
 const chatDogList = [
   {
-    path: '/chat/fortune',
+    path: `/detail/${CHAT.FORTUNE}`,
     title: '포춘독',
     imgPath: '/static/images/fortune.png',
     tag: ['#운세', '#사주', '#취업운', '#연애운', '#건강운', '#시험운', '#토정비결', '#신년운세'],
@@ -114,7 +116,7 @@ const chatDogList = [
     go: '운세',
   },
   {
-    path: '/chat/recipe',
+    path: `/detail/${CHAT.RECIPE}`,
     title: '레시피독',
     imgPath: '/static/images/fortune.png',
     tag: ['#레시피', '#음식', '#요리', '#오늘 뭐먹지?'],
@@ -122,7 +124,7 @@ const chatDogList = [
     go: '레시피',
   },
   {
-    path: '/chat/diet',
+    path: `/detail/${CHAT.DIET}`,
     title: '다이어트독',
     imgPath: '/static/images/fortune.png',
     tag: ['#다이어트', '#음식', '#요리', '#식단관리', '#체중감량'],
