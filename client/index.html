@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
   <head>
+    <?php include $_SERVER['DOCUMENT_ROOT'].'./version.php'; ?>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta
@@ -25,6 +26,9 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
     />
+    <link rel="stylesheet"
+    href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css""
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -32,7 +36,11 @@
       rel="stylesheet"
     />
     <link rel="shortcut icon" href="./image/favicon.ico" />
-    <link rel="stylesheet" href="./css/style.css?v=5" />
+    <link rel="stylesheet" href="./css/reset.css?v=<?php echo $version?>" />
+    <link
+      rel="stylesheet"
+      href="./css/main/index.css?v=<?php echo $version?>"
+    />
     <script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5610907263411318"
@@ -55,6 +63,12 @@
     <title>운세보는 강아지 챗독</title>
   </head>
   <body>
+    <header>
+      <div>
+        <h1>챗독</h1>
+        <img src="./image/paw.png" alt="발바닥 로고" />
+      </div>
+    </header>
     <div class="ad-banner">
       <ins
         class="kakao_ad_area"
@@ -64,53 +78,27 @@
         data-ad-height="50"
       ></ins>
     </div>
-
     <main>
-      <h1 id="title">
-        <span>운세 알려주는 강아지</span>
-        <span>
-          챗독
-          <img src="./image/paw.png" alt="발바닥"
-        /></span>
-      </h1>
-      <form id="date-form">
-        <img src="./image/doge.png" alt="doge" id="main__image" />
-        <div class="dateForm__input">
-          <div>
-            <label for="date">생년월일</label>
-            <input type="date" name="date" placeholder="생년월일" />
-          </div>
-          <div>
-            <label for="time">태어난시</label>
-            <input type="time" name="time" laceholder="시간" />
-          </div>
-        </div>
-        <button>운세보기</button>
-      </form>
-      <form id="chat">
-        <div class="chat-window">
-          <div class="chat-header">
-            <h2>나는야 챗독</h2>
-          </div>
-          <div class="chat-messages">
-            <ul>
-              <!-- messages from astrologer or user -->
-            </ul>
-            <div id="dim">
-              <div id="loader">
-                <i class="fa-solid fa-spinner fa-spin-pulse"></i>
-              </div>
-              <p>챗독은 귀여운 강아지라서 <br />생각하는 시간이 필요해요!</p>
-            </div>
-          </div>
-          <div class="chat-input">
-            <input type="text" placeholder="Type your message..." />
-            <button>Send</button>
-          </div>
-        </div>
-      </form>
+      <section>
+        <h2>포춘독</h2>
+        <img src="./image/fortune.png" alt="" />
+        <p>#오늘의 운세 #평생운세 #사주 #연애운 #취업운</p>
+        <p>귀여운 포춘독이 당신의 운세를 알려드립니다</p>
+      </section>
+      <section>
+        <h2>레시피독</h2>
+        <img src="./image/fortune.png" alt="" />
+        <p>#오늘 뭐먹지? #오늘의 레시피</p>
+        <p>레시피독이 오늘의 레시피를 알려드립니다</p>
+      </section>
+      <section>
+        <h2>다이어트독</h2>
+        <img src="./image/fortune.png" alt="" />
+        <p>#다이어트 #식단 #건강식단</p>
+        <p>든든한 다이어트독이 당신의 식단을 알려드립니다</p>
+      </section>
     </main>
-    <button id="kakao-share" onclick="kakaoShare()"></button>
+
     <div class="ad-banner">
       <ins
         class="kakao_ad_area"
@@ -120,7 +108,10 @@
         data-ad-height="100"
       ></ins>
     </div>
-    <div class="copy_check">복사되었습니다</div>
+    <footer>
+      <p>© 참치타워</p>
+    </footer>
+
     <script
       type="text/javascript"
       src="//t1.daumcdn.net/kas/static/ba.min.js"
@@ -133,6 +124,6 @@
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
     <script src="./js/share.js"></script>
-    <script src="./js/index.js?v=5"></script>
+    <script src="./js/index.js?v=<?php echo $version?>"></script>
   </body>
 </html>
