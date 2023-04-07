@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-User-Agent : Google
-Allow : /
-User-Agent : Yeti
-Allow : /
