@@ -63,10 +63,6 @@ export default function Home() {
   };
   return (
     <Container>
-      <Head>
-        <title>AI 강아지 챗독</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <section>
         <ul>
           {chatDogList.map((list) => (
