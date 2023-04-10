@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/router';
@@ -6,7 +6,12 @@ import { MdArrowBackIosNew } from 'react-icons/md';
 import { CHAT } from '@/consts/chatType';
 import { SlPaperPlane } from 'react-icons/sl';
 import { useForm } from 'react-hook-form';
-import Image from 'next/image';
+import { useRecoilValue } from 'recoil';
+import { DateTime } from '@/store/dateTime';
+import { Message } from '@/components';
+import axios from 'axios';
+import { GetServerSidePropsContext } from 'next';
+import { Orbit } from '@uiball/loaders';
 const Chatting = styled.section`
   position: relative;
   overflow: hidden;
@@ -48,13 +53,14 @@ const Chatting = styled.section`
       gap: 10px;
       padding: 20px;
       li {
-        width: 50%;
+        width: fit-content;
+        max-width: 50%;
         text-align: justify;
         word-break: break-all;
         p {
           background: #fff;
           padding: 10px;
-          border-radius: 20px;
+          border-radius: 10px;
         }
         &.assistant {
           display: flex;
@@ -76,14 +82,14 @@ const Chatting = styled.section`
     @media (max-width: 1024px) {
       ul {
         li {
-          width: 70%;
+          max-width: 70%;
         }
       }
     }
     @media (max-width: 750px) {
       ul {
         li {
-          width: 80%;
+          max-width: 80%;
         }
       }
     }
@@ -102,20 +108,96 @@ const Chatting = styled.section`
   }
 `;
 
-const Chat = () => {
+interface ConversationType {
+  role: 'assistant' | 'user';
+  content: string;
+}
+
+const Chat = ({ dog }: { dog: string }) => {
+  const chatRef = useRef<HTMLUListElement>(null);
+  const messageRef = useRef<HTMLLIElement>(null);
+  const loadingRef = useRef<HTMLLIElement>(null);
+  const dateTime = useRecoilValue(DateTime);
   const router = useRouter();
-  const dog = router.query.dog as string;
+  const [isLoading, setIsLoading] = useState(false);
+  const [userMessages, setUserMessages] = useState<string[]>([]);
+  const [assistantMessages, setAssistantMessages] = useState<string[]>([]);
+  const chatInfo = {
+    [CHAT.FORTUNE]: {
+      placeholder: '당신의 운세에 대해 궁금한 것을 물어보세요',
+      firstMessage: `당신의 생년월일은 ${dateTime.date}, 태어난 시각은 ${dateTime.time} 이군요! 운세에 대해 어떤 것이든 물어보세요 :)`,
+      data: { date: dateTime.date, time: dateTime.time },
+      url: 'fortuneTell',
+    },
+    [CHAT.RECIPE]: {
+      placeholder: '오늘은 뭐먹지? 레시피독은 산해진미 레시피를 알고 있어요',
+      firstMessage: `레시피에 관해 무엇이던 물어보세요 :)`,
+      data: {},
+    },
+    [CHAT.DIET]: {
+      placeholder: '오늘도 두둑한 뱃살.. 내 식단을 부탁해!',
+      firstMessage: `오늘도 다이어트를 해볼까요? 어떤 식단을 원하시나요? :)`,
+      data: {},
+    },
+  };
+  const [conversation, setConversation] = useState<ConversationType[]>([
+    { role: 'assistant', content: dog && chatInfo[dog].firstMessage },
+  ]);
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<{ chat: string }>();
   const handleClickBack = () => {
     router.back();
   };
-  const handleSubmitChat = (value: { chat: string }) => {
-    console.log(value);
+  const handleSubmitChat = async (value: { chat: string }) => {
+    setUserMessages((prev) => {
+      return [...prev, value.chat];
+    });
+    setConversation((prev) => {
+      return [...prev, { role: 'user', content: value.chat }];
+    });
+    setValue('chat', '');
+    try {
+      setIsLoading(true);
+      const { data } = await axios({
+        method: 'post',
+        url: `http://localhost:8080/${chatInfo[dog].url}`,
+        data: {
+          ...chatInfo[dog].data,
+          userMessages: [...userMessages, value.chat],
+          assistantMessages,
+        },
+      });
+      setAssistantMessages((prev) => {
+        return [...prev, data.assistant];
+      });
+      setConversation((prev) => {
+        return [...prev, { role: 'assistant', content: data.assistant }];
+      });
+      setIsLoading(false);
+    } catch (error) {
+      setConversation((prev) => {
+        return [
+          ...prev,
+          { role: 'assistant', content: '요청시간이 초과되었습니다. 새로고침을 해주세요.' },
+        ];
+      });
+      console.error(error);
+    }
   };
+
+  useEffect(() => {
+    if (messageRef.current) {
+      messageRef.current.scrollIntoView();
+    }
+    if (loadingRef.current) {
+      loadingRef.current.scrollIntoView();
+    }
+  }, [conversation, isLoading]);
+
   return (
     <Chatting>
       <section className="chat-header">
@@ -125,23 +207,28 @@ const Chat = () => {
         <h2>{dog && dog.toUpperCase()} DOG</h2>
       </section>
       <section className="chat-window">
-        <ul>
-          <li className="assistant">
-            <Image src="/static/images/profile.png" width={40} height={40} alt="profile" priority />
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis earum laudantium
-              optio nulla neque dolorum corrupti consectetur, magni sed odio accusantium iure, totam
-              praesentium aliquid exercitationem fugit dolorem necessitatibus vero?
-            </p>
-          </li>
-          <li className="user">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis earum laudantium
-              optio nulla neque dolorum corrupti consectetur, magni sed odio accusantium iure, totam
-              praesentium aliquid exercitationem fugit dolorem necessitatibus vero?
-            </p>
-          </li>
-        </ul>
+        {dog && (
+          <ul ref={chatRef}>
+            {conversation.map((message, idx) => (
+              <Message
+                ref={messageRef}
+                key={idx}
+                chatter={message.role}
+                message={message.content}
+              />
+            ))}
+            {isLoading && (
+              <>
+                <Message
+                  ref={loadingRef}
+                  chatter="assistant"
+                  message="챗독은 귀여운 강아지라서 생각하는 시간이 필요해요! :)"
+                />
+                <Orbit size={16} speed={1.5} color="black" />
+              </>
+            )}
+          </ul>
+        )}
       </section>
       <form onSubmit={handleSubmit(handleSubmitChat)}>
         <input type="text" {...register('chat')} placeholder={dog && chatInfo[dog].placeholder} />
@@ -155,14 +242,10 @@ const Chat = () => {
 
 export default Chat;
 
-const chatInfo = {
-  [CHAT.FORTUNE]: {
-    placeholder: '당신의 운세에 대해 궁금한 것을 물어보세요',
-  },
-  [CHAT.RECIPE]: {
-    placeholder: '오늘은 뭐먹지? 레시피독은 산해진미 레시피를 알고 있어요',
-  },
-  [CHAT.DIET]: {
-    placeholder: '오늘도 두둑한 뱃살.. 내 식단을 부탁해!',
-  },
+export const getServerSideProps = (context: GetServerSidePropsContext) => {
+  return {
+    props: {
+      dog: context.query.dog,
+    },
+  };
 };
