@@ -67,7 +67,7 @@ export default function Home() {
         <ul>
           {chatDogList.map((list) => (
             <li key={list.title}>
-              <Title titleText={list.title} subtext={list.sub} />
+              <Title titleText={list.title} />
               <Image src={list.imgPath} fill alt={list.title} priority />
               <article>
                 <div className="tagbox">

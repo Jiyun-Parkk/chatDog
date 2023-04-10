@@ -80,7 +80,7 @@ const Detail = () => {
       {dog && (
         <>
           <Image src={dogInfo.imgPath} fill alt={dog} priority />
-          <Title titleText={dog} subtext={dogInfo.sub} />
+          <Title titleText={dog} />
           <article>
             {dogInfo.detailtext.map((explain, idx) => (
               <p key={idx}>{explain}</p>

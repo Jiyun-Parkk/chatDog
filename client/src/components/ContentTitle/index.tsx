@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 interface TitleProps {
   titleText: string;
-  subtext: string;
 }
 
 const ContentTitle = styled.div`
@@ -14,31 +13,17 @@ const ContentTitle = styled.div`
 
   h2 {
     width: fit-content;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     position: relative;
-    &:before {
-      content: '';
-      width: 100%;
-      height: 10px;
-      position: absolute;
-      bottom: 3px;
-      left: 10px;
-      z-index: -1;
-      background: rgba(182, 46, 63, 0.4);
-    }
   }
-  span {
-    font-size: 0.8em;
-    color: darkblue;
-  }
+
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 `;
 
-export const Title = ({ titleText, subtext }: TitleProps) => {
+export const Title = ({ titleText }: TitleProps) => {
   return (
     <ContentTitle>
       <h2>{titleText.toUpperCase()} DOG</h2>
-      <span>{subtext} </span>
     </ContentTitle>
   );
 };
