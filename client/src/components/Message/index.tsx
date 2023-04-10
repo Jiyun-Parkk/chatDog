@@ -6,13 +6,16 @@ interface MessageProps {
   message: string;
 }
 
-export const Message = ({ chatter, message }: MessageProps) => {
-  return (
-    <li className={chatter}>
-      {chatter === 'assistant' && (
-        <Image src="/static/images/profile.png" width={40} height={40} alt="profile" priority />
-      )}
-      <p>{message}</p>
-    </li>
-  );
-};
+// eslint-disable-next-line react/display-name
+export const Message = React.forwardRef<HTMLLIElement, MessageProps>(
+  ({ chatter, message }, ref) => {
+    return (
+      <li className={chatter} ref={ref}>
+        {chatter === 'assistant' && (
+          <Image src="/static/images/profile.png" width={40} height={40} alt="profile" priority />
+        )}
+        <p>{message}</p>
+      </li>
+    );
+  }
+);
