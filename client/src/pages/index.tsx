@@ -57,7 +57,7 @@ const Container = styled.section`
   }
   @media (max-width: 750px) {
     ul {
-      width: 90%;
+      width: 100%;
       gap: 50px;
       flex-direction: column;
     }
