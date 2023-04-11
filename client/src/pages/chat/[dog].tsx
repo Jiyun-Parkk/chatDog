@@ -20,8 +20,9 @@ const Chatting = styled.section`
     align-items: center;
     background: rgb(182, 46, 63);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
+    position: fixed;
+    width: 100%;
+    top: 0px;
     left: 0;
     .chat-header__backbtn {
       position: absolute;
@@ -40,6 +41,7 @@ const Chatting = styled.section`
     }
   }
   .chat-window {
+    padding-top: 50px;
     overflow: auto;
     width: 100%;
     height: calc(100vh - 224px);
@@ -200,7 +202,6 @@ const Chat = ({ dog }: { dog: string }) => {
 
   return (
     <Chatting>
-      <KakaoAdFit id="DAN-Sql2zi4WT2vuigJb" />
       <section className="chat-header">
         <Button className="chat-header__backbtn" onClick={handleClickBack}>
           <MdArrowBackIosNew />
@@ -237,6 +238,7 @@ const Chat = ({ dog }: { dog: string }) => {
           <SlPaperPlane />
         </Button>
       </form>
+      <KakaoAdFit id="DAN-Sql2zi4WT2vuigJb" />
       <KakaoAdFit id="DAN-VuJyc1Y6PLZURbsE" />
     </Chatting>
   );

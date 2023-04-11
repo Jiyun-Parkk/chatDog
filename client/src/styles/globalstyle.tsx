@@ -11,6 +11,10 @@ html,body {
   font-family:  NanumSquare, sans-serif;
 }
 
+body::-webkit-scrollbar {
+  display:none ;
+}
+
 footer, header, section {
 	display: block;
 }

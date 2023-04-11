@@ -14,7 +14,7 @@ export const Message = React.forwardRef<HTMLLIElement, MessageProps>(
         {chatter === 'assistant' && (
           <Image src="/static/images/profile.png" width={40} height={40} alt="profile" priority />
         )}
-        <p>{message}</p>
+        <p dangerouslySetInnerHTML={{ __html: message }}></p>
       </li>
     );
   }
