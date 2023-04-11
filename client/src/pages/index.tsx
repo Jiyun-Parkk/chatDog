@@ -39,8 +39,7 @@ const Container = styled.section`
 
       button {
         align-self: flex-start;
-        padding: 0px;
-        padding-right: 10px;
+        padding: 0 10px 10px 0;
         color: rgba(182, 46, 63);
         display: flex;
         align-items: center;
