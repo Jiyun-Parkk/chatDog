@@ -22,7 +22,7 @@ import { DateTime } from '@/store/dateTime';
 import { GetServerSidePropsContext } from 'next';
 
 const Container = styled.section<{ route: string }>`
-  padding: 90px 0 30px;
+  padding: 30px 0;
   width: 40%;
   position: relative;
   margin: 0 auto;
@@ -59,7 +59,6 @@ const Container = styled.section<{ route: string }>`
       }
     }
   }
-
   button {
     width: 100%;
     color: #fff;
