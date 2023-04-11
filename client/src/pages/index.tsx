@@ -15,7 +15,8 @@ const Container = styled.section`
     display: flex;
     gap: 20px;
     padding: 30px;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
+    justify-content: center;
     li {
       position: relative;
       display: flex;
