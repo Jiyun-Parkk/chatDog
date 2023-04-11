@@ -111,7 +111,7 @@ const Detail = ({ dog }: { dog: string }) => {
     <Container route={dog}>
       {dog && (
         <>
-          <Image src={dogInfo.imgPath} fill alt={dog} priority />
+          <Image src={dogInfo.imgPath} fill alt={dog} priority sizes="100" />
           <Title titleText={dog} />
           <article>
             {dogInfo.detailtext.map((explain, idx) => (
