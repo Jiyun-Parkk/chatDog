@@ -18,6 +18,7 @@ let corsOptions = {
   origin: [
     process.env.CHAT_DOG_URL,
     process.env.LOCAL_URL,
+    process.env.LOCAL_URL_SECOND,
     process.env.CHAT_DOG_URL_CUSTOM,
   ],
   credentials: true,
@@ -30,13 +31,13 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 
 // POST method route
 app.post('/fortuneTell', async function (req, res) {
-  let { myDateTime, userMessages, assistantMessages } = req.body;
+  let { date, time, userMessages, assistantMessages } = req.body;
 
   let todayDateTime = new Date().toLocaleString('ko-KR', {
     timeZone: 'Asia/Seoul',
   });
 
-  let messages = [
+  messages = [
     {
       role: 'system',
       content:
@@ -54,11 +55,11 @@ app.post('/fortuneTell', async function (req, res) {
     },
     {
       role: 'user',
-      content: `저의 생년월일과 태어난 시간은 ${myDateTime}입니다. 오늘은 ${todayDateTime}입니다.`,
+      content: `저의 생년월일은 ${date}, 태어난 시간은 ${time}입니다. 오늘은 ${todayDateTime}입니다.`,
     },
     {
       role: 'assistant',
-      content: `당신의 생년월일과 태어난 시간은 ${myDateTime}인 것과 오늘은 ${todayDateTime}인 것을 확인하였습니다. 운세에 대해서 어떤 것이든 물어보세요!`,
+      content: `당신의 생년월일은 ${date}, 태어난 시간은 ${time}인 것과 오늘은 ${todayDateTime}인 것을 확인하였습니다. 운세에 대해서 어떤 것이든 물어보세요!`,
     },
   ];
 
@@ -68,7 +69,7 @@ app.post('/fortuneTell', async function (req, res) {
         JSON.parse(
           `{"role": "user", "content":"${String(userMessages.shift()).replace(
             /\n/g,
-            '',
+            '<br/>',
           )}"}`,
         ),
       );
@@ -78,7 +79,7 @@ app.post('/fortuneTell', async function (req, res) {
         JSON.parse(
           `{"role": "assistant", "content":"${String(
             assistantMessages.shift(),
-          ).replace(/\n/g, '')}"}`,
+          ).replace(/\n/g, '<br />')}"}`,
         ),
       );
     }
@@ -105,7 +106,7 @@ app.post('/fortuneTell', async function (req, res) {
 
   let fortune = completion.data.choices[0].message['content'];
 
-  res.json({ assistant: fortune });
+  res.status(200).json({ assistant: fortune });
 });
 
 module.exports.handler = serverless(app);
