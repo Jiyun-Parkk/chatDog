@@ -12,6 +12,8 @@ import { KakaoAdFit, Message } from '@/components';
 import axios from 'axios';
 import { GetServerSidePropsContext } from 'next';
 import { Orbit } from '@uiball/loaders';
+import { IoIosRefresh } from 'react-icons/io';
+
 const Chatting = styled.section`
   position: relative;
   overflow: hidden;
@@ -41,6 +43,8 @@ const Chatting = styled.section`
     }
   }
   .chat-window {
+    display: flex;
+    flex-direction: column;
     padding-top: 50px;
     overflow: auto;
     width: 100%;
@@ -80,6 +84,15 @@ const Chatting = styled.section`
         }
       }
     }
+    .refresh-btn {
+      color: #fff;
+      font-size: 1.5rem;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 0;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      margin: 20px auto;
+    }
 
     @media (max-width: 1024px) {
       ul {
@@ -116,11 +129,12 @@ interface ConversationType {
 }
 
 const Chat = ({ dog }: { dog: string }) => {
+  const router = useRouter();
   const chatRef = useRef<HTMLUListElement>(null);
   const messageRef = useRef<HTMLLIElement>(null);
   const loadingRef = useRef<HTMLLIElement>(null);
   const dateTime = useRecoilValue(DateTime);
-  const router = useRouter();
+  const [axiosArror, setAxiosArror] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userMessages, setUserMessages] = useState<string[]>([]);
   const [assistantMessages, setAssistantMessages] = useState<string[]>([]);
@@ -179,7 +193,6 @@ const Chat = ({ dog }: { dog: string }) => {
       setConversation((prev) => {
         return [...prev, { role: 'assistant', content: data.assistant }];
       });
-      setIsLoading(false);
     } catch (error) {
       setConversation((prev) => {
         return [
@@ -187,8 +200,14 @@ const Chat = ({ dog }: { dog: string }) => {
           { role: 'assistant', content: '요청시간이 초과되었습니다. 새로고침을 해주세요.' },
         ];
       });
+      setAxiosArror(true);
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
+  };
+  const handleRefresh = () => {
+    router.reload();
   };
 
   useEffect(() => {
@@ -231,6 +250,11 @@ const Chat = ({ dog }: { dog: string }) => {
             )}
           </ul>
         )}
+        {axiosArror && (
+          <Button className="refresh-btn" onClick={handleRefresh}>
+            <IoIosRefresh />
+          </Button>
+        )}
       </section>
       <form onSubmit={handleSubmit(handleSubmitChat)}>
         <input type="text" {...register('chat')} placeholder={dog && chatInfo[dog].placeholder} />
@@ -238,7 +262,7 @@ const Chat = ({ dog }: { dog: string }) => {
           <SlPaperPlane />
         </Button>
       </form>
-      <KakaoAdFit id="DAN-Sql2zi4WT2vuigJb" />
+
       <KakaoAdFit id="DAN-VuJyc1Y6PLZURbsE" />
     </Chatting>
   );
