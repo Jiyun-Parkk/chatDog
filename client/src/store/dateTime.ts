@@ -23,7 +23,7 @@ export const setCookieEffect =
   };
 
 export const DateTime = atom<FortuneBirthType>({
-  key: `dateTime${v1}`,
+  key: `dateTime/${v1}`,
   default: {
     date: '',
     time: '',
