@@ -6,6 +6,7 @@ import cookies from 'next-cookies';
 import type { AppContext, AppProps } from 'next/app';
 import Script from 'next/script';
 import { RecoilRoot, MutableSnapshot } from 'recoil';
+import { Analytics } from '@vercel/analytics/react';
 
 interface MyAppProps extends AppProps {
   userBirth: FortuneBirthType;
@@ -30,6 +31,7 @@ export default function App({ Component, pageProps, userBirth }: MyAppProps) {
           <Component {...pageProps} />
         </Layout>
       </RecoilRoot>
+      <Analytics />
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-QDHX3HN0PZ"
         strategy="afterInteractive"
