@@ -1,15 +1,25 @@
 import { useRouter } from 'next/router';
-import React, { use, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CHAT } from '@/consts/chatType';
 import Image from 'next/image';
-import { Button, FormHelperText, TextField } from '@mui/material';
+import {
+  Button,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+} from '@mui/material';
 import { chatDogList } from '@/consts/chatDogInfo';
 import { Title } from '@/components';
 import { useForm } from 'react-hook-form';
 import { FortuneFormType } from '@/types';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { DateTime } from '@/store/dateTime';
+import { GetServerSidePropsContext } from 'next';
 
 const Container = styled.section<{ route: string }>`
   padding: 90px 0 30px;
@@ -36,6 +46,18 @@ const Container = styled.section<{ route: string }>`
     display: flex;
     flex-direction: column;
     gap: 20px;
+    > label {
+      color: darkblue;
+    }
+    .date-form {
+      display: flex;
+      gap: 20px;
+      div {
+        align-items: end;
+        display: flex;
+        gap: 5px;
+      }
+    }
   }
 
   button {
@@ -57,22 +79,33 @@ const Container = styled.section<{ route: string }>`
   }
 `;
 
-const Detail = () => {
+const Detail = ({ dog }: { dog: string }) => {
   const router = useRouter();
   const setDateTime = useSetRecoilState(DateTime);
-  const dog = router.query.dog as string;
   const dogInfo = chatDogList.filter((chatdog) => chatdog.title === dog)[0];
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<FortuneFormType>();
+  const [time, setTime] = useState('모름');
+
   const handleSubmitFortune = (value: FortuneFormType) => {
-    const getTime = value.time.split(':');
+    const getDate = `${value.Year}-${value.Month}-${value.Day}`;
+    if (new Date() < new Date(getDate)) {
+      setError('Year', { message: '날짜가 지금보다 미래입니다' });
+      return;
+    }
     setDateTime((prev) => {
-      return { ...prev, date: value.date, time: `${getTime[0]}시 ${getTime[1]}분` };
+      return { ...prev, date: getDate, time: value.Time };
     });
+    console.log(value.Time);
     router.push(`/chat/${dog}`);
+  };
+
+  const handleChangeSelectTime = (event: SelectChangeEvent) => {
+    setTime(event.target.value);
   };
 
   return (
@@ -88,25 +121,32 @@ const Detail = () => {
           </article>
           {dog === CHAT.FORTUNE ? (
             <form onSubmit={handleSubmit(handleSubmitFortune)}>
-              <TextField
-                type="date"
-                {...register('date', {
-                  required: '날짜를 입력해 주세요',
-                  validate: {
-                    errorDate: (date: string) => {
-                      return new Date() > new Date(date);
-                    },
-                  },
-                })}
-              />
-              <TextField type="time" {...register('time', { required: '시간을 입력해 주세요' })} />
-              <FormHelperText error>
-                {errors.date
-                  ? errors.date.type === 'errorDate'
-                    ? '날짜가 지금보다 미래입니다'
-                    : errors.date?.message
-                  : errors.time?.message}
-              </FormHelperText>
+              <InputLabel>생년월일</InputLabel>
+              <div className="date-form">
+                {birthInput.map((birth, idx) => (
+                  <div key={idx}>
+                    <TextField
+                      label={birth.label}
+                      type="number"
+                      {...register(birth.label, {
+                        required: '날짜를 입력해 주세요',
+                      })}
+                    />
+                    <span>{birth.sub}</span>
+                  </div>
+                ))}
+              </div>
+              <InputLabel>태어난시</InputLabel>
+              <FormControl>
+                <Select {...register('Time')} value={time} onChange={handleChangeSelectTime}>
+                  {timeList.map((hour) => (
+                    <MenuItem key={hour} value={hour}>
+                      {hour}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormHelperText error>{errors[Object.keys(errors)[0]]?.message}</FormHelperText>
               <Button type="submit">{dogInfo.keyword} 물어보러 가기</Button>
             </form>
           ) : (
@@ -119,3 +159,37 @@ const Detail = () => {
 };
 
 export default Detail;
+
+export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
+  return {
+    props: {
+      dog: ctx.query.dog,
+    },
+  };
+};
+
+interface BirthInputType {
+  label: 'Year' | 'Month' | 'Day';
+  sub: string;
+}
+const birthInput: BirthInputType[] = [
+  { label: 'Year', sub: '년' },
+  { label: 'Month', sub: '월' },
+  { label: 'Day', sub: '일' },
+];
+
+const timeList = [
+  '모름',
+  '23:00∼1:00',
+  '1:00∼3:00',
+  '3:00∼5:00',
+  '5:00∼7:00',
+  '7:00∼9:00',
+  '9:00∼11:00',
+  '11:00∼13:00',
+  '13:00∼15:00',
+  '15:00∼17:00',
+  '17:00~19:00',
+  '19:00∼21:00',
+  '21:00∼23:00',
+];
