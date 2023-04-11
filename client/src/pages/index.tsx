@@ -26,6 +26,7 @@ const Container = styled.section`
         position: static !important;
         border-radius: 20px;
         aspect-ratio: 1 / 1;
+        cursor: pointer;
       }
       .tagbox {
         padding: 10px 0;
@@ -68,7 +69,13 @@ export default function Home() {
           {chatDogList.map((list) => (
             <li key={list.title}>
               <Title titleText={list.title} />
-              <Image src={list.imgPath} fill alt={list.title} priority />
+              <Image
+                src={list.imgPath}
+                fill
+                alt={list.title}
+                priority
+                onClick={() => handleClickBanner(`/detail/${list.title}`)}
+              />
               <article>
                 <div className="tagbox">
                   {list.tag.map((tag, idx) => (
