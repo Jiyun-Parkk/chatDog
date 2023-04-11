@@ -1,14 +1,14 @@
 import { Layout } from '@/components';
 import { DateTime } from '@/store/dateTime';
 import { GlobalStyle } from '@/styles/globalstyle';
-import { FortuneFormType } from '@/types';
+import { FortuneBirthType } from '@/types';
 import cookies from 'next-cookies';
 import type { AppContext, AppProps } from 'next/app';
 import Script from 'next/script';
 import { RecoilRoot, MutableSnapshot } from 'recoil';
 
 interface MyAppProps extends AppProps {
-  userBirth: FortuneFormType;
+  userBirth: FortuneBirthType;
 }
 export default function App({ Component, pageProps, userBirth }: MyAppProps) {
   const initialState = ({ set }: MutableSnapshot) => {

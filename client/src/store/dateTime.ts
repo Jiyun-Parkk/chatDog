@@ -1,4 +1,4 @@
-import { FortuneFormType } from '@/types';
+import { FortuneBirthType } from '@/types';
 import { atom } from 'recoil';
 import { Cookies } from 'react-cookie';
 import { AtomEffect } from 'recoil';
@@ -22,7 +22,7 @@ export const setCookieEffect =
     }
   };
 
-export const DateTime = atom<FortuneFormType>({
+export const DateTime = atom<FortuneBirthType>({
   key: `dateTime${v1}`,
   default: {
     date: '',
