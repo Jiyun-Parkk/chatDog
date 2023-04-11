@@ -125,7 +125,7 @@ const Chat = ({ dog }: { dog: string }) => {
   const chatInfo = {
     [CHAT.FORTUNE]: {
       placeholder: '당신의 운세에 대해 궁금한 것을 물어보세요',
-      firstMessage: `당신의 생년월일은 ${dateTime.date}, 태어난 시각은 ${dateTime.time} 이군요! 운세에 대해 어떤 것이든 물어보세요 :)`,
+      firstMessage: `당신의 생년월일은 '${dateTime.date}', 태어난 시각은 '${dateTime.time}' 이군요! 운세에 대해 어떤 것이든 물어보세요 :)`,
       data: { date: dateTime.date, time: dateTime.time },
       url: 'fortuneTell',
     },
