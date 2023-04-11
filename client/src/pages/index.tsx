@@ -1,11 +1,10 @@
-import Head from 'next/head';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { Button } from '@mui/material';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 import { chatDogList } from '@/consts/chatDogInfo';
-import { Title } from '@/components';
+import { KakaoAdFit, Title } from '@/components';
 
 const Container = styled.section`
   padding-top: 60px;
@@ -72,6 +71,7 @@ export default function Home() {
   };
   return (
     <Container>
+      <KakaoAdFit id="DAN-uN1thLqMAEjPbvRl" />
       <section>
         <ul>
           {chatDogList.map((list) => (
@@ -100,6 +100,7 @@ export default function Home() {
           ))}
         </ul>
       </section>
+      <KakaoAdFit id="DAN-iHu4K4WXJEEUcnyr" />
     </Container>
   );
 }

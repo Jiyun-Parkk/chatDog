@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/router';
@@ -8,7 +8,7 @@ import { SlPaperPlane } from 'react-icons/sl';
 import { useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
 import { DateTime } from '@/store/dateTime';
-import { Message } from '@/components';
+import { KakaoAdFit, Message } from '@/components';
 import axios from 'axios';
 import { GetServerSidePropsContext } from 'next';
 import { Orbit } from '@uiball/loaders';
@@ -200,6 +200,7 @@ const Chat = ({ dog }: { dog: string }) => {
 
   return (
     <Chatting>
+      <KakaoAdFit id="DAN-Sql2zi4WT2vuigJb" />
       <section className="chat-header">
         <Button className="chat-header__backbtn" onClick={handleClickBack}>
           <MdArrowBackIosNew />
@@ -236,6 +237,7 @@ const Chat = ({ dog }: { dog: string }) => {
           <SlPaperPlane />
         </Button>
       </form>
+      <KakaoAdFit id="DAN-VuJyc1Y6PLZURbsE" />
     </Chatting>
   );
 };

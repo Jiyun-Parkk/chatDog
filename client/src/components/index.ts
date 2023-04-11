@@ -3,3 +3,4 @@ export * from './Header';
 export * from './Footer';
 export * from './ContentTitle';
 export * from './Message';
+export * from './KakaoAdFit';

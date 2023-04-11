@@ -14,10 +14,10 @@ import {
   TextField,
 } from '@mui/material';
 import { chatDogList } from '@/consts/chatDogInfo';
-import { Title } from '@/components';
+import { KakaoAdFit, Title } from '@/components';
 import { useForm } from 'react-hook-form';
 import { FortuneFormType } from '@/types';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { DateTime } from '@/store/dateTime';
 import { GetServerSidePropsContext } from 'next';
 
@@ -79,6 +79,10 @@ const Container = styled.section<{ route: string }>`
   }
 `;
 
+const Wrapper = styled.section`
+  padding-top: 62px;
+`;
+
 const Detail = ({ dog }: { dog: string }) => {
   const router = useRouter();
   const setDateTime = useSetRecoilState(DateTime);
@@ -108,52 +112,56 @@ const Detail = ({ dog }: { dog: string }) => {
   };
 
   return (
-    <Container route={dog}>
-      {dog && (
-        <>
-          <Image src={dogInfo.imgPath} fill alt={dog} priority sizes="100" />
-          <Title titleText={dog} />
-          <article>
-            {dogInfo.detailtext.map((explain, idx) => (
-              <p key={idx}>{explain}</p>
-            ))}
-          </article>
-          {dog === CHAT.FORTUNE ? (
-            <form onSubmit={handleSubmit(handleSubmitFortune)}>
-              <InputLabel>생년월일</InputLabel>
-              <div className="date-form">
-                {birthInput.map((birth, idx) => (
-                  <div key={idx}>
-                    <TextField
-                      label={birth.label}
-                      type="number"
-                      {...register(birth.label, {
-                        required: '날짜를 입력해 주세요',
-                      })}
-                    />
-                    <span>{birth.sub}</span>
-                  </div>
-                ))}
-              </div>
-              <InputLabel>태어난시</InputLabel>
-              <FormControl>
-                <Select {...register('Time')} value={time} onChange={handleChangeSelectTime}>
-                  {timeList.map((hour) => (
-                    <MenuItem key={hour} value={hour}>
-                      {hour}
-                    </MenuItem>
+    <Wrapper>
+      <KakaoAdFit id="DAN-J31SAV4eddoCVFwN" />
+      <Container route={dog}>
+        {dog && (
+          <>
+            <Image src={dogInfo.imgPath} fill alt={dog} priority sizes="100" />
+            <Title titleText={dog} />
+            <article>
+              {dogInfo.detailtext.map((explain, idx) => (
+                <p key={idx}>{explain}</p>
+              ))}
+            </article>
+            {dog === CHAT.FORTUNE ? (
+              <form onSubmit={handleSubmit(handleSubmitFortune)}>
+                <InputLabel>생년월일</InputLabel>
+                <div className="date-form">
+                  {birthInput.map((birth, idx) => (
+                    <div key={idx}>
+                      <TextField
+                        label={birth.label}
+                        type="number"
+                        {...register(birth.label, {
+                          required: '날짜를 입력해 주세요',
+                        })}
+                      />
+                      <span>{birth.sub}</span>
+                    </div>
                   ))}
-                </Select>
-              </FormControl>
-              <FormHelperText error>{errors[Object.keys(errors)[0]]?.message}</FormHelperText>
-              <Button type="submit">{dogInfo.keyword} 물어보러 가기</Button>
-            </form>
-          ) : (
-            <Button>{dogInfo.keyword} 물어보러 가기</Button>
-          )}
-        </>
-      )}
-    </Container>
+                </div>
+                <InputLabel>태어난시</InputLabel>
+                <FormControl>
+                  <Select {...register('Time')} value={time} onChange={handleChangeSelectTime}>
+                    {timeList.map((hour) => (
+                      <MenuItem key={hour} value={hour}>
+                        {hour}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormHelperText error>{errors[Object.keys(errors)[0]]?.message}</FormHelperText>
+                <Button type="submit">{dogInfo.keyword} 물어보러 가기</Button>
+              </form>
+            ) : (
+              <Button>{dogInfo.keyword} 물어보러 가기</Button>
+            )}
+          </>
+        )}
+      </Container>
+      <KakaoAdFit id="DAN-7E5a54fo8kOnJlHQ" />
+    </Wrapper>
   );
 };
 
