@@ -55,6 +55,13 @@ const Container = styled.section`
       flex-direction: column;
     }
   }
+  @media (max-width: 750px) {
+    ul {
+      width: 90%;
+      gap: 50px;
+      flex-direction: column;
+    }
+  }
 `;
 
 export default function Home() {
@@ -71,8 +78,9 @@ export default function Home() {
               <Title titleText={list.title} />
               <Image
                 src={list.imgPath}
-                fill
                 alt={list.title}
+                sizes="100"
+                fill
                 priority
                 onClick={() => handleClickBanner(`/detail/${list.title}`)}
               />
