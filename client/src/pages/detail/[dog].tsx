@@ -53,9 +53,14 @@ const Container = styled.section<{ route: string }>`
       display: flex;
       gap: 20px;
       div {
+        width: 100%;
         align-items: end;
         display: flex;
         gap: 5px;
+        flex-basis: calc(100% / 3);
+        .MuiFormControl-root {
+          flex: 1;
+        }
       }
     }
   }
@@ -135,6 +140,10 @@ const Detail = ({ dog }: { dog: string }) => {
                         {...register(birth.label, {
                           required: '날짜를 입력해 주세요',
                         })}
+                        inputProps={{
+                          min: birth.min,
+                          max: birth.max,
+                        }}
                       />
                       <span>{birth.sub}</span>
                     </div>
@@ -177,11 +186,13 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
 interface BirthInputType {
   label: 'Year' | 'Month' | 'Day';
   sub: string;
+  min: number;
+  max: number;
 }
 const birthInput: BirthInputType[] = [
-  { label: 'Year', sub: '년' },
-  { label: 'Month', sub: '월' },
-  { label: 'Day', sub: '일' },
+  { label: 'Year', sub: '년', min: 1920, max: 2023 },
+  { label: 'Month', sub: '월', min: 1, max: 12 },
+  { label: 'Day', sub: '일', min: 1, max: 31 },
 ];
 
 const timeList = [
