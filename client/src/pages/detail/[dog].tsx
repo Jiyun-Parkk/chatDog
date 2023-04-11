@@ -100,7 +100,6 @@ const Detail = ({ dog }: { dog: string }) => {
     setDateTime((prev) => {
       return { ...prev, date: getDate, time: value.Time };
     });
-    console.log(value.Time);
     router.push(`/chat/${dog}`);
   };
 
