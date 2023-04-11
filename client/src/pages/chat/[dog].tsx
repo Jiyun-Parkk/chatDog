@@ -234,7 +234,7 @@ const Chat = ({ dog }: { dog: string }) => {
       </section>
       <form onSubmit={handleSubmit(handleSubmitChat)}>
         <input type="text" {...register('chat')} placeholder={dog && chatInfo[dog].placeholder} />
-        <Button type="submit">
+        <Button type="submit" disabled={isLoading}>
           <SlPaperPlane />
         </Button>
       </form>
