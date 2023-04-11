@@ -36,15 +36,20 @@ const Container = styled.section`
           font-size: 0.9rem;
         }
       }
-
       button {
         align-self: flex-start;
-        padding: 0 10px 10px 0;
+        padding: 0;
         color: rgba(182, 46, 63);
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 5px;
         font-size: 1.1rem;
+        div {
+          padding: 5px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
       }
     }
   }
@@ -93,7 +98,10 @@ export default function Home() {
                 </div>
                 <p>{list.explain}</p>
                 <Button onClick={() => handleClickBanner(`/detail/${list.title}`)}>
-                  {list.keyword} 물어보러 가기 <BsFillArrowRightCircleFill />
+                  {list.keyword} 물어보러 가기
+                  <div>
+                    <BsFillArrowRightCircleFill />
+                  </div>
                 </Button>
               </article>
             </li>
