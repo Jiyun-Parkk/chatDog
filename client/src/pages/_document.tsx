@@ -31,6 +31,11 @@ const MyDocument = (props: MyDocumentProps) => {
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5610907263411318"
           crossOrigin="anonymous"
         ></script>
+        <script
+          src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
+          integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx"
+          crossOrigin="anonymous"
+        ></script>
       </Head>
       <body>
         <Main />

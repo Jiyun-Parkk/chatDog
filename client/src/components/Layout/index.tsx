@@ -1,5 +1,5 @@
 import React from 'react';
-import { Footer, Header } from '@/components';
+import { Footer, Header, Kakaoshare } from '@/components';
 import Head from 'next/head';
 
 interface LayoutProps {
@@ -17,6 +17,7 @@ export const Layout = ({ children }: LayoutProps) => {
       </Head>
       <Header />
       <main>{children}</main>
+      <Kakaoshare />
       <Footer />
     </>
   );
