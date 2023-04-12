@@ -1,8 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from 'openai';
+import cors from 'cors';
 type Data = {
   assistant: string;
 };
+
+cors({ origin: 'http://www.aichatdog.com', credentials: true });
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
