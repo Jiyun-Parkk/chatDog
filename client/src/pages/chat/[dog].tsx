@@ -180,9 +180,8 @@ const Chat = ({ dog }: { dog: string }) => {
       setIsLoading(true);
       const { data } = await axios({
         method: 'post',
-        //url: `${process.env.NEXT_PUBLIC_API_URL}/${chatInfo[dog].url}`,
-        //url: `https://as6o3r7tmcm4kg5cxykm5ubdi40rqvwh.lambda-url.ap-northeast-2.on.aws/${chatInfo[dog].url}`,
-        url: `/api/${chatInfo[dog].url}`,
+        url: `${process.env.NEXT_PUBLIC_API_URL}/${chatInfo[dog].url}`,
+        //url: `/api/${chatInfo[dog].url}`,
         data: {
           ...chatInfo[dog].data,
           userMessages: [...userMessages, value.chat],
