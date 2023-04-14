@@ -38,17 +38,16 @@ const Container = styled.section`
       }
       button {
         align-self: flex-start;
-        padding: 0;
-        color: rgba(182, 46, 63);
+        background: rgba(182, 46, 63);
+        color: #fff;
         display: flex;
         align-items: center;
         gap: 5px;
         font-size: 1.1rem;
-        div {
-          padding: 5px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+        padding: 10px;
+        margin-top: 20px;
+        &:hover {
+          background: rgba(182, 46, 65, 0.9);
         }
       }
     }
@@ -99,9 +98,7 @@ export default function Home() {
                 <p>{list.explain}</p>
                 <Button onClick={() => handleClickBanner(`/detail/${list.title}`)}>
                   {list.keyword} 물어보러 가기
-                  <div>
-                    <BsFillArrowRightCircleFill />
-                  </div>
+                  <BsFillArrowRightCircleFill />
                 </Button>
               </article>
             </li>

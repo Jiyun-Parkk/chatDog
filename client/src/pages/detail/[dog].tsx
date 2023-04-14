@@ -68,10 +68,11 @@ const Container = styled.section<{ route: string }>`
     width: 100%;
     color: #fff;
     background: rgba(182, 46, 63);
-    padding: 10px;
+    padding: 15px;
     margin: 20px 0;
+    font-size: 1.1rem;
     &:hover {
-      background-color: rgba(182, 46, 63, 0.8);
+      background-color: rgba(182, 46, 63, 0.9);
     }
   }
 

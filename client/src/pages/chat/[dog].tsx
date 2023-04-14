@@ -30,7 +30,7 @@ const Chatting = styled.section`
       position: absolute;
       top: 0;
       left: 0;
-      color: #000;
+      color: #fff;
       font-size: 1.3rem;
       padding: 0;
       aspect-ratio: 1 / 1;
@@ -40,15 +40,16 @@ const Chatting = styled.section`
       line-height: 64px;
       flex: 1;
       text-align: center;
+      color: #fff;
     }
   }
   .chat-window {
     display: flex;
     flex-direction: column;
-    padding-top: 50px;
+    padding-top: 60px;
     overflow: auto;
     width: 100%;
-    height: calc(100vh - 224px);
+    height: calc(100vh - 120px);
     background: rgba(182, 46, 63);
     &::-webkit-scrollbar {
       display: none;
@@ -64,6 +65,7 @@ const Chatting = styled.section`
         text-align: justify;
         word-break: break-all;
         p {
+          font-size: 0.9rem;
           background: #fff;
           padding: 10px;
           border-radius: 10px;
@@ -104,7 +106,7 @@ const Chatting = styled.section`
     @media (max-width: 750px) {
       ul {
         li {
-          max-width: 80%;
+          max-width: 90%;
         }
       }
     }
@@ -114,8 +116,12 @@ const Chatting = styled.section`
     display: flex;
     input {
       width: 100%;
-      padding: 15px;
+      padding: 18px;
       border: none;
+      font-size: 1.1rem;
+      &::placeholder {
+        font-size: 1rem;
+      }
     }
     button {
       color: #000;

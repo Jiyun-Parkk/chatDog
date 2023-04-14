@@ -5,7 +5,7 @@ const CustomFooter = styled.footer`
   width: 100%;
   background: #2c3333;
   color: #fff;
-  height: 100px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
