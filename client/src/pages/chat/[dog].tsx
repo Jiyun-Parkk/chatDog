@@ -49,7 +49,7 @@ const Chatting = styled.section`
     padding-top: 60px;
     overflow: auto;
     width: 100%;
-    height: calc(100vh - 120px);
+    height: calc(100vh - 184px);
     background: rgba(182, 46, 63);
     &::-webkit-scrollbar {
       display: none;
@@ -118,10 +118,6 @@ const Chatting = styled.section`
       width: 100%;
       padding: 18px;
       border: none;
-      font-size: 1.03rem;
-      &::placeholder {
-        font-size: 1rem;
-      }
     }
     button {
       color: #000;
@@ -219,7 +215,7 @@ const Chat = ({ dog }: { dog: string }) => {
 
   useEffect(() => {
     if (messageRef.current) {
-      messageRef.current.scrollIntoView();
+      messageRef.current.scrollIntoView({ block: 'start' });
     }
     if (loadingRef.current) {
       loadingRef.current.scrollIntoView();
