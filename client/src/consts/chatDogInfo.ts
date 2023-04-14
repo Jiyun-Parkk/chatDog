@@ -1,10 +1,11 @@
 import { CHAT } from './chatType';
+import fortuneImage from '/public/static/images/fortune.png';
 
 export const chatDogList = [
   {
     title: CHAT.FORTUNE,
     keyword: '운세',
-    imgPath: '/static/images/fortune.png',
+    imgPath: fortuneImage,
     tag: ['#운세', '#사주', '#취업운', '#연애운', '#건강운', '#시험운', '#토정비결', '#신년운세'],
     explain: '귀여운 포춘독이 당신의 운세를 알려드립니다',
     sub: '운세 알려주는 신비로운 강아지 포춘독',

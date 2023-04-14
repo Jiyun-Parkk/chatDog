@@ -87,6 +87,7 @@ export default function Home() {
                 sizes="100"
                 fill
                 priority
+                placeholder="blur"
                 onClick={() => handleClickBanner(`/detail/${list.title}`)}
               />
               <article>

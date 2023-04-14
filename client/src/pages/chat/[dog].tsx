@@ -118,7 +118,7 @@ const Chatting = styled.section`
       width: 100%;
       padding: 18px;
       border: none;
-      font-size: 1.1rem;
+      font-size: 1.03rem;
       &::placeholder {
         font-size: 1rem;
       }

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import profileImage from '/public/static/images/profile.png';
 
 const CustomHeader = styled.header<{ route: string }>`
   display: ${({ route }) => (route.includes('chat') ? 'none' : 'block')};
@@ -43,7 +44,7 @@ export const Header = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div onClick={handleClickLogo}>
-        <Image src="/static/images/profile.png" width={40} height={40} alt="logo" priority />
+        <Image src={profileImage} width={40} height={40} alt="logo" priority />
         <h1>챗독</h1>
       </div>
     </CustomHeader>
