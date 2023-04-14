@@ -44,12 +44,13 @@ const Chatting = styled.section`
     }
   }
   .chat-window {
+    flex: 1;
     display: flex;
     flex-direction: column;
     padding-top: 60px;
     overflow: auto;
     width: 100%;
-    height: calc(100vh - 184px);
+    height: calc(100vh - 180px);
     background: rgba(182, 46, 63);
     &::-webkit-scrollbar {
       display: none;
@@ -261,7 +262,7 @@ const Chat = ({ dog }: { dog: string }) => {
       </section>
       <form onSubmit={handleSubmit(handleSubmitChat)}>
         <input type="text" {...register('chat')} placeholder={dog && chatInfo[dog].placeholder} />
-        <Button type="submit" disabled={isLoading}>
+        <Button type="submit" disabled={isLoading || axiosArror}>
           <SlPaperPlane />
         </Button>
       </form>
