@@ -1,14 +1,10 @@
+import ChatDogUtils from '@/utils/chatAi';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from 'openai';
+import { ChatCompletionRequestMessage } from 'openai';
 
 type Data = {
   assistant: string;
 };
-
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   if (req.method === 'POST') {
@@ -41,48 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         content: `당신의 생년월일은 ${date}, 태어난 시간은 ${time}인 것과 오늘은 ${todayDateTime}인 것을 확인하였습니다. 운세에 대해서 어떤 것이든 물어보세요!`,
       },
     ];
-
-    while (userMessages.length !== 0 || assistantMessages.length !== 0) {
-      if (userMessages.length !== 0) {
-        messages.push(
-          JSON.parse(
-            `{"role": "user", "content":"${String(userMessages.shift()).replace(/\n/g, '<br/>')}"}`
-          )
-        );
-      }
-      if (assistantMessages.length !== 0) {
-        messages.push(
-          JSON.parse(
-            `{"role": "assistant", "content":"${String(assistantMessages.shift()).replace(
-              /\n/g,
-              '<br />'
-            )}"}`
-          )
-        );
-      }
-    }
-    const maxRetries = 3;
-    let retries = 0;
-    let completion;
-    while (retries < maxRetries) {
-      try {
-        completion = await openai.createChatCompletion({
-          model: 'gpt-3.5-turbo',
-          messages: messages,
-        });
-        break;
-      } catch (error) {
-        retries++;
-        console.log(error);
-        console.log(`Error fetching data, retrying (${retries}/${maxRetries})...`);
-        res.status(400).send({ assistant: 'Error fetching data' });
-      }
-    }
-    let fortune;
-    if (completion !== undefined) {
-      //@ts-ignore
-      fortune = completion.data.choices[0].message['content'];
-    }
-    res.status(200).json({ assistant: fortune as string });
+    const answer = await ChatDogUtils({ res, userMessages, assistantMessages, messages });
+    res.status(200).json({ assistant: answer as string });
   }
 }
