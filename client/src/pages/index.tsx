@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { Button } from '@mui/material';
-import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 import { chatDogList } from '@/consts/chatDogInfo';
 import { KakaoAdFit, Title } from '@/components';
+import { MdChevronRight } from 'react-icons/md';
 
 const Container = styled.section`
   padding-top: 60px;
@@ -98,7 +98,7 @@ export default function Home() {
                 <p>{list.explain}</p>
                 <Button onClick={() => handleClickBanner(`/detail/${list.title}`)}>
                   {list.keyword} 물어보러 가기
-                  <BsFillArrowRightCircleFill />
+                  <MdChevronRight />
                 </Button>
               </article>
             </li>
