@@ -12,6 +12,7 @@ const Container = styled.section`
     height: 100vh;
     display: flex;
     justify-content: space-between;
+    position: relative;
   }
   @media (max-width: 1024px) {
     ul {
@@ -83,6 +84,9 @@ const DogContentList = styled.li<{ color: string }>`
     }
   }
   @media (max-width: 1024px) {
+    position: sticky;
+    top: 0px;
+    left: 0;
     img {
       height: auto;
     }
@@ -105,11 +109,11 @@ export default function Home() {
                 {list.mainText.map((text) => (
                   <p>{text}</p>
                 ))}
-                <div className="tagbox">
+                {/*<div className="tagbox">
                   {list.tag.map((tag, idx) => (
                     <span key={idx}>{tag} </span>
                   ))}
-                </div>
+                </div>*/}
               </div>
               <Image
                 src={list.imgPath}
