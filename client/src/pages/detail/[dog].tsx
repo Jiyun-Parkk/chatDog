@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CHAT } from '@/consts/chatType';
-import Image from 'next/image';
 import {
   Button,
   FormControl,
@@ -14,30 +13,32 @@ import {
   TextField,
 } from '@mui/material';
 import { chatDogList } from '@/consts/chatDogInfo';
-import { KakaoAdFit, Title } from '@/components';
+import { Header, KakaoAdFit, Title } from '@/components';
 import { useForm } from 'react-hook-form';
 import { FortuneFormType } from '@/types';
 import { useSetRecoilState } from 'recoil';
 import { DateTime } from '@/store/dateTime';
 import { GetServerSidePropsContext } from 'next';
 
-const Container = styled.section<{ route: string }>`
-  padding: 30px 0;
+const Container = styled.section<{ route: string; color: string }>`
   width: 40%;
   position: relative;
   margin: 0 auto;
-  img {
-    position: static !important;
-    border-radius: 20px;
-  }
   article {
-    padding: 20px 0;
     p {
       text-align: justify;
       word-break: break-all;
-      padding: 10px 0;
-      &:last-of-type {
-        color: ${({ route }) => (route === CHAT.FORTUNE ? 'darkblue' : 'inherit')};
+    }
+    .main-text {
+      padding: 20px 0;
+      font-weight: 700;
+      font-size: 22px;
+      line-height: 1.5;
+    }
+    .sub-text {
+      p {
+        padding: 0;
+        color: rgba(0, 0, 0, 0.64);
       }
     }
   }
@@ -47,10 +48,12 @@ const Container = styled.section<{ route: string }>`
     flex-direction: column;
     gap: 20px;
     > label {
-      color: darkblue;
+      color: #000;
+      font-weight: 600;
     }
     .date-form {
       display: flex;
+      flex-direction: column;
       gap: 20px;
       div {
         width: 100%;
@@ -63,29 +66,30 @@ const Container = styled.section<{ route: string }>`
         }
       }
     }
+    .MuiFormControl-root {
+      .MuiInputLabel-root.Mui-focused {
+        color: ${({ color }) => color};
+      }
+      .MuiInputBase-root.Mui-focused fieldset {
+        border-color: ${({ color }) => color};
+      }
+    }
   }
-  button {
+  .submit-btn {
     width: 100%;
     color: #fff;
-    background: rgba(182, 46, 63);
+    background: ${({ color }) => color};
     padding: 15px;
     margin: 20px 0;
     font-size: 1.1rem;
-    &:hover {
-      background-color: rgba(182, 46, 63, 0.9);
-    }
   }
 
   @media (max-width: 1024px) {
     width: 60%;
   }
   @media (max-width: 750px) {
-    width: 85%;
+    width: 90%;
   }
-`;
-
-const Wrapper = styled.section`
-  padding-top: 62px;
 `;
 
 const Detail = ({ dog }: { dog: string }) => {
@@ -112,22 +116,32 @@ const Detail = ({ dog }: { dog: string }) => {
     router.push(`/chat/${dog}`);
   };
 
+  const handleMoveChat = () => {
+    router.push(`/chat/${dog}`);
+  };
+
   const handleChangeSelectTime = (event: SelectChangeEvent) => {
     setTime(event.target.value);
   };
 
   return (
-    <Wrapper>
-      <KakaoAdFit id="DAN-J31SAV4eddoCVFwN" />
-      <Container route={dog}>
+    <>
+      <Container route={dog} color={dogInfo.color.point}>
+        <Header />
+        <Title titleText={dogInfo.keyword} />
         {dog && (
           <>
-            <Image src={dogInfo.imgPath} fill alt={dog} placeholder="blur" priority sizes="100" />
-            <Title titleText={dog} />
             <article>
-              {dogInfo.detailtext.map((explain, idx) => (
-                <p key={idx}>{explain}</p>
-              ))}
+              <div className="main-text">
+                {dogInfo.detailtext.map((detailt, idx) => (
+                  <p key={idx}>{detailt}</p>
+                ))}
+              </div>
+              <div className="sub-text">
+                {dogInfo.explain.map((explain, idx) => (
+                  <p key={idx}>{explain}</p>
+                ))}
+              </div>
             </article>
             {dog === CHAT.FORTUNE ? (
               <form onSubmit={handleSubmit(handleSubmitFortune)}>
@@ -146,7 +160,6 @@ const Detail = ({ dog }: { dog: string }) => {
                           max: birth.max,
                         }}
                       />
-                      <span>{birth.sub}</span>
                     </div>
                   ))}
                 </div>
@@ -161,16 +174,20 @@ const Detail = ({ dog }: { dog: string }) => {
                   </Select>
                 </FormControl>
                 <FormHelperText error>{errors[Object.keys(errors)[0]]?.message}</FormHelperText>
-                <Button type="submit">{dogInfo.keyword} 물어보러 가기</Button>
+                <Button type="submit" className="submit-btn">
+                  {dogInfo.button}
+                </Button>
               </form>
             ) : (
-              <Button>{dogInfo.keyword} 물어보러 가기</Button>
+              <Button className="submit-btn" onClick={handleMoveChat}>
+                {dogInfo.button}
+              </Button>
             )}
           </>
         )}
       </Container>
       <KakaoAdFit id="DAN-7E5a54fo8kOnJlHQ" />
-    </Wrapper>
+    </>
   );
 };
 
@@ -186,14 +203,13 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
 
 interface BirthInputType {
   label: 'Year' | 'Month' | 'Day';
-  sub: string;
   min: number;
   max: number;
 }
 const birthInput: BirthInputType[] = [
-  { label: 'Year', sub: '년', min: 1920, max: 2023 },
-  { label: 'Month', sub: '월', min: 1, max: 12 },
-  { label: 'Day', sub: '일', min: 1, max: 31 },
+  { label: 'Year', min: 1920, max: 2023 },
+  { label: 'Month', min: 1, max: 12 },
+  { label: 'Day', min: 1, max: 31 },
 ];
 
 const timeList = [
