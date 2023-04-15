@@ -3,8 +3,7 @@ import styled from 'styled-components';
 
 const CustomFooter = styled.footer`
   width: 100%;
-  background: #2c3333;
-  color: #fff;
+  color: #000;
   height: 60px;
   display: flex;
   align-items: center;
