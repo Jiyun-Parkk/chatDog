@@ -79,9 +79,9 @@ const Container = styled.section<{ route: string; color: string }>`
     width: 100%;
     color: #fff;
     background: ${({ color }) => color};
-    padding: 15px;
+    padding: 16px;
     margin: 20px 0;
-    font-size: 1.1rem;
+    font-weight: 700;
   }
 
   @media (max-width: 1024px) {
