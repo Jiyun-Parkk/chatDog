@@ -25,8 +25,8 @@ export default function App({ Component, pageProps, userBirth }: MyAppProps) {
   };
   return (
     <>
-      <GlobalStyle />
       <RecoilRoot initializeState={initialState}>
+        <GlobalStyle />
         <Layout>
           <Component {...pageProps} />
         </Layout>
