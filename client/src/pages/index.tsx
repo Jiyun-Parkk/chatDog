@@ -24,7 +24,6 @@ const Container = styled.section`
 
 const DogContentList = styled.li<{ color: string }>`
   width: 100%;
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -84,9 +83,6 @@ const DogContentList = styled.li<{ color: string }>`
     }
   }
   @media (max-width: 1024px) {
-    position: sticky;
-    top: 0px;
-    left: 0;
     img {
       height: auto;
     }
