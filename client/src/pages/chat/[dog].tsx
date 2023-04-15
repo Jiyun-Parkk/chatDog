@@ -76,12 +76,13 @@ const Chatting = styled.section`
           background: #fff;
           padding: 10px;
           border-radius: 10px;
+          border-top-left-radius: 0;
           position: relative;
           &::before {
             content: '';
             position: absolute;
             top: 0;
-            right: -8px;
+            right: -7px;
             width: 0;
             height: 0;
             border-bottom: 8px solid transparent;
@@ -101,7 +102,7 @@ const Chatting = styled.section`
             background: lightyellow;
             &::before {
               top: 0;
-              left: -8px;
+              left: -7px;
               border-bottom: 8px solid transparent;
               border-top: 8px solid lightyellow;
               border-left: 8px solid transparent;
@@ -171,7 +172,7 @@ const Chat = ({ dog }: { dog: string }) => {
       placeholder: '오늘은 뭐먹지? 레시피독은 산해진미 레시피를 알고 있어요',
       firstMessage: `오늘도 맛있는 하루를 보내봐요🍳 어떤 요리가 궁금하신가요?`,
       keyword: '레시피독',
-      url: 'kcalTell',
+      url: 'recipeTell',
     },
     [CHAT.KCAL]: {
       placeholder: '오늘도 두둑한 뱃살.. 내 식단을 부탁해!',
