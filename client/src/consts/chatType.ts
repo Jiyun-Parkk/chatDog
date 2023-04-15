@@ -1,5 +1,6 @@
 export const CHAT = {
   FORTUNE: 'fortune',
   RECIPE: 'recipe',
-  DIET: 'diet',
+  KCAL: 'kcal',
+  DRUNKEN: 'drunken',
 };
