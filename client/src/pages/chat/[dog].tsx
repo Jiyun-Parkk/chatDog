@@ -203,7 +203,7 @@ const Chat = ({ dog }: { dog: string }) => {
   };
   const handleSubmitChat = async (value: { chat: string }) => {
     setUserMessages((prev) => {
-      return [...prev, value.chat];
+      return [...prev, value.chat.replace(/\n/g, '<br/>')];
     });
     setConversation((prev) => {
       return [...prev, { role: 'user', content: value.chat }];

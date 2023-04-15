@@ -22,21 +22,10 @@ const ChatDogUtils = async ({
 }: ChatDogUtilsProps) => {
   while (userMessages.length !== 0 || assistantMessages.length !== 0) {
     if (userMessages.length !== 0) {
-      messages.push(
-        JSON.parse(
-          `{"role": "user", "content":"${String(userMessages.shift()).replace(/\n/g, '<br/>')}"}`
-        )
-      );
+      messages.push(JSON.parse(`{"role": "user", "content":"${userMessages.shift()}"}`));
     }
     if (assistantMessages.length !== 0) {
-      messages.push(
-        JSON.parse(
-          `{"role": "assistant", "content":"${String(assistantMessages.shift()).replace(
-            /\n/g,
-            '<br />'
-          )}"}`
-        )
-      );
+      messages.push(JSON.parse(`{"role": "assistant", "content":"${assistantMessages.shift()}"}`));
     }
   }
   const maxRetries = 3;
@@ -62,6 +51,9 @@ const ChatDogUtils = async ({
   if (completion !== undefined) {
     //@ts-ignore
     answer = completion.data.choices[0].message['content'];
+    if (assistantMessages.length === 0) {
+      answer = String(answer).replace(/\n/g, '<br/>');
+    }
   }
 
   return answer;
