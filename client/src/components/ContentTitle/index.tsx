@@ -23,7 +23,7 @@ const ContentTitle = styled.div`
 export const Title = ({ titleText }: TitleProps) => {
   return (
     <ContentTitle>
-      <h2>{titleText.toUpperCase()} DOG</h2>
+      <h2>{titleText.toUpperCase()}</h2>
     </ContentTitle>
   );
 };
