@@ -76,6 +76,7 @@ const DogContentList = styled.li<{ color: string }>`
     gap: 5px;
     padding: 16px;
     cursor: pointer;
+    font-weight: 700;
     &:hover {
       border: 2px solid rgba(255, 255, 255, 0.5);
       color: #fff;
