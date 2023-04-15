@@ -26,14 +26,17 @@ const Chatting = styled.section`
     width: 100%;
     top: 0px;
     left: 0;
-    .chat-header__backbtn {
-      position: absolute;
-      top: 0;
-      left: 0;
-      color: #fff;
-      font-size: 1.3rem;
+    z-index: 10;
+    button {
       padding: 0;
       aspect-ratio: 1 / 1;
+      font-size: 1.3rem;
+      color: #fff;
+      position: absolute;
+      top: 0;
+    }
+    .chat-header__backbtn {
+      left: 0;
     }
     h2 {
       height: 64px;
@@ -41,6 +44,9 @@ const Chatting = styled.section`
       flex: 1;
       text-align: center;
       color: #fff;
+    }
+    .refresh-btn {
+      right: 0;
     }
   }
   .chat-window {
@@ -70,31 +76,43 @@ const Chatting = styled.section`
           background: #fff;
           padding: 10px;
           border-radius: 10px;
+          position: relative;
+          &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -8px;
+            width: 0;
+            height: 0;
+            border-bottom: 8px solid transparent;
+            border-top: 8px solid #fff;
+            border-left: 8px solid #fff;
+            border-right: 8px solid transparent;
+          }
         }
         &.assistant {
           display: flex;
           gap: 10px;
           img {
             border-radius: 20px;
-            background: skyblue;
+            background: #fff;
           }
           p {
             background: lightyellow;
+            &::before {
+              top: 0;
+              left: -8px;
+              border-bottom: 8px solid transparent;
+              border-top: 8px solid lightyellow;
+              border-left: 8px solid transparent;
+              border-right: 8px solid lightyellow;
+            }
           }
         }
         &.user {
           align-self: flex-end;
         }
       }
-    }
-    .refresh-btn {
-      color: #fff;
-      font-size: 1.5rem;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 0;
-      aspect-ratio: 1 / 1;
-      border-radius: 50%;
-      margin: 20px auto;
     }
 
     @media (max-width: 1024px) {
@@ -107,7 +125,7 @@ const Chatting = styled.section`
     @media (max-width: 750px) {
       ul {
         li {
-          max-width: 90%;
+          max-width: 100%;
         }
       }
     }
@@ -144,19 +162,27 @@ const Chat = ({ dog }: { dog: string }) => {
   const chatInfo = {
     [CHAT.FORTUNE]: {
       placeholder: '당신의 운세에 대해 궁금한 것을 물어보세요',
-      firstMessage: `당신의 생년월일은 ${dateTime.date}, 태어난 시각은 ${dateTime.time} 이군요! 운세에 대해 어떤 것이든 물어보세요 :)`,
+      firstMessage: `당신의 생년월일은 ${dateTime.date}, 태어난 시각은 ${dateTime.time} 이군요! 운세에 대해 어떤 것이든 물어보세요 🔮`,
       data: { date: dateTime.date, time: dateTime.time },
+      keyword: '포춘독',
       url: 'fortuneTell',
     },
     [CHAT.RECIPE]: {
       placeholder: '오늘은 뭐먹지? 레시피독은 산해진미 레시피를 알고 있어요',
-      firstMessage: `레시피에 관해 무엇이던 물어보세요 :)`,
-      data: {},
+      firstMessage: `오늘도 맛있는 하루를 보내봐요🍳 어떤 요리가 궁금하신가요?`,
+      keyword: '레시피독',
+      url: 'kcalTell',
     },
-    [CHAT.DIET]: {
+    [CHAT.KCAL]: {
       placeholder: '오늘도 두둑한 뱃살.. 내 식단을 부탁해!',
-      firstMessage: `오늘도 다이어트를 해볼까요? 어떤 식단을 원하시나요? :)`,
-      data: {},
+      firstMessage: `오늘 칼로리를 내일로 미루자...🥦 어떤 식단을 원하시나요? 구성하고 싶은 총 칼로리량과 메뉴 스타일을 말씀해주세요. 예시) 한식 500kcal`,
+      keyword: '칼로리독',
+      url: 'kcalTell',
+    },
+    [CHAT.DRUNKEN]: {
+      placeholder: '오늘도 두둑한 뱃살.. 내 식단을 부탁해!',
+      firstMessage: `나는 취한다..오늘도 나에게..헛!🥂 낭만이 필요하신가요? 술에 관해 무엇이던 물어보세요!`,
+      keyword: '드렁큰독',
     },
   };
   const [conversation, setConversation] = useState<ConversationType[]>([
@@ -186,7 +212,7 @@ const Chat = ({ dog }: { dog: string }) => {
         //url: `${process.env.NEXT_PUBLIC_API_URL}/${chatInfo[dog].url}`,
         url: `/api/${chatInfo[dog].url}`,
         data: {
-          ...chatInfo[dog].data,
+          ...chatInfo[dog]?.data,
           userMessages: [...userMessages, value.chat],
           assistantMessages,
         },
@@ -201,7 +227,10 @@ const Chat = ({ dog }: { dog: string }) => {
       setConversation((prev) => {
         return [
           ...prev,
-          { role: 'assistant', content: '요청시간이 초과되었습니다. 새로고침을 해주세요.' },
+          {
+            role: 'assistant',
+            content: `${chatInfo[dog].keyword}이 머리를 너무 써서 어지러운 것 같아요 🥺 새로고침을 해주세요.`,
+          },
         ];
       });
       setAxiosArror(true);
@@ -229,7 +258,10 @@ const Chat = ({ dog }: { dog: string }) => {
         <Button className="chat-header__backbtn" onClick={handleClickBack}>
           <MdArrowBackIosNew />
         </Button>
-        <h2>{dog && dog.toUpperCase()} DOG</h2>
+        <Button className="refresh-btn" onClick={handleRefresh}>
+          <IoIosRefresh />
+        </Button>
+        <h2>{dog && chatInfo[dog].keyword}</h2>
       </section>
       <section className="chat-window">
         {dog && (
@@ -247,17 +279,12 @@ const Chat = ({ dog }: { dog: string }) => {
                 <Message
                   ref={loadingRef}
                   chatter="assistant"
-                  message="챗독은 귀여운 강아지라서 생각하는 시간이 필요해요! :)"
+                  message={`${chatInfo[dog].keyword}은 귀여운 강아지라서 생각하는 시간이 필요해요!`}
                 />
                 <Orbit size={16} speed={1.5} color="black" />
               </>
             )}
           </ul>
-        )}
-        {axiosArror && (
-          <Button className="refresh-btn" onClick={handleRefresh}>
-            <IoIosRefresh />
-          </Button>
         )}
       </section>
       <form onSubmit={handleSubmit(handleSubmitChat)}>
