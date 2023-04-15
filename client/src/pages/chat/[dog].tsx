@@ -103,6 +103,8 @@ const Chatting = styled.section`
             &::before {
               top: 0;
               left: -7px;
+              border-top-left-radius: 10px;
+              border-top-right-radius: 0;
               border-bottom: 8px solid transparent;
               border-top: 8px solid lightyellow;
               border-left: 8px solid transparent;

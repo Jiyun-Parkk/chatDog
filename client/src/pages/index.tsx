@@ -109,11 +109,11 @@ export default function Home() {
                 {list.mainText.map((text) => (
                   <p>{text}</p>
                 ))}
-                {/*<div className="tagbox">
+                <div className="tagbox">
                   {list.tag.map((tag, idx) => (
                     <span key={idx}>{tag} </span>
                   ))}
-                </div>*/}
+                </div>
               </div>
               <Image
                 src={list.imgPath}

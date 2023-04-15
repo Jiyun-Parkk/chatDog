@@ -1,26 +1,24 @@
 require('dotenv').config();
-//const serverless = require('serverless-http');
+const serverless = require('serverless-http');
 const { Configuration, OpenAIApi } = require('openai');
 const express = require('express');
 var cors = require('cors');
 const app = express();
-
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
-app.listen(8080, (req, res) => {
-  console.log('server is open http://localhost:8080');
-});
-
+//app.listen(8080, (req, res) => {
+//  console.log('server is open http://localhost:8080');
+//});
 //CORS 이슈 해결
 let corsOptions = {
   origin: [
     process.env.CHAT_DOG_URL,
+    process.env.CHAT_DOG_WORLD,
     process.env.LOCAL_URL,
     process.env.LOCAL_URL_SECOND,
     process.env.CHAT_DOG_URL_CUSTOM,
-    process.env.CHAT_DOG_WORLD,
   ],
   credentials: true,
 };
@@ -38,7 +36,7 @@ app.post('/fortuneTell', async function (req, res) {
     timeZone: 'Asia/Seoul',
   });
 
-  messages = [
+  let messages = [
     {
       role: 'system',
       content:
@@ -107,7 +105,7 @@ app.post('/fortuneTell', async function (req, res) {
 
   let fortune = completion.data.choices[0].message['content'];
 
-  res.status(200).json({ assistant: fortune, messages });
+  res.json({ assistant: fortune });
 });
 
-//module.exports.handler = serverless(app);
+module.exports.handler = serverless(app);
