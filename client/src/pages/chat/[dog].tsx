@@ -184,6 +184,7 @@ const Chat = ({ dog }: { dog: string }) => {
       placeholder: '오늘도 두둑한 뱃살.. 내 식단을 부탁해!',
       firstMessage: `나는 취한다..오늘도 나에게..헛!🥂 낭만이 필요하신가요? 술에 관해 무엇이던 물어보세요!`,
       keyword: '드렁큰독',
+      url: 'drunkenTell',
     },
   };
   const [conversation, setConversation] = useState<ConversationType[]>([
