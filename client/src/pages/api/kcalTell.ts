@@ -9,9 +9,6 @@ type Data = {
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   if (req.method === 'POST') {
     let { userMessages, assistantMessages } = req.body;
-    let todayDateTime = new Date().toLocaleString('ko-KR', {
-      timeZone: 'Asia/Seoul',
-    });
     let messages: ChatCompletionRequestMessage[] = [
       {
         role: 'system',
