@@ -4,13 +4,15 @@ import styled from 'styled-components';
 
 const ShareBtn = styled(Button)`
   padding: 0;
+  display: block;
   width: 50px;
-  aspect-ratio: 1 / 1;
+  height: 50px;
+  min-width: 40px;
   position: fixed;
   border: none;
   bottom: 30px;
-  right: 30px;
-  border-radius: 50%;
+  right: 20px;
+  border-radius: 20px;
   z-index: 30;
   cursor: pointer;
   background: url('/static/images/kakao.png') no-repeat center/cover;
