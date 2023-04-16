@@ -13,20 +13,22 @@ import axios from 'axios';
 import { GetServerSidePropsContext } from 'next';
 import { Orbit } from '@uiball/loaders';
 import { IoIosRefresh } from 'react-icons/io';
+import { chatDogList } from '@/consts/chatDogInfo';
 
-const Chatting = styled.section`
+const Chatting = styled.section<{ color: string }>`
   position: relative;
   overflow: hidden;
   .chat-header {
     display: flex;
     align-items: center;
-    background: rgb(182, 46, 63);
+    background: ${({ color }) => color};
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     position: fixed;
     width: 100%;
     top: 0px;
     left: 0;
     z-index: 10;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
     button {
       padding: 0;
       aspect-ratio: 1 / 1;
@@ -57,7 +59,7 @@ const Chatting = styled.section`
     overflow: auto;
     width: 100%;
     height: calc(100vh - 180px);
-    background: rgba(182, 46, 63);
+    background: ${({ color }) => color};
     &::-webkit-scrollbar {
       display: none;
     }
@@ -165,25 +167,21 @@ const Chat = ({ dog }: { dog: string }) => {
       placeholder: '당신의 운세에 대해 궁금한 것을 물어보세요',
       firstMessage: `당신의 생년월일은 ${dateTime.date}, 태어난 시각은 ${dateTime.time} 이군요! 운세에 대해 어떤 것이든 물어보세요 🔮`,
       data: { date: dateTime.date, time: dateTime.time },
-      keyword: '포춘독',
       url: 'fortuneTell',
     },
     [CHAT.RECIPE]: {
       placeholder: '오늘은 뭐먹지? 레시피독은 산해진미 레시피를 알고 있어요',
       firstMessage: `오늘도 맛있는 하루를 보내봐요🍳 어떤 요리가 궁금하신가요?`,
-      keyword: '레시피독',
       url: 'recipeTell',
     },
     [CHAT.KCAL]: {
       placeholder: '오늘도 두둑한 뱃살.. 내 식단을 부탁해!',
       firstMessage: `오늘 칼로리를 내일로 미루자...🥦 어떤 식단을 원하시나요? 구성하고 싶은 총 칼로리량과 메뉴 스타일을 말씀해주세요. 예시) 한식 500kcal`,
-      keyword: '칼로리독',
       url: 'kcalTell',
     },
     [CHAT.DRUNKEN]: {
       placeholder: '오늘도 두둑한 뱃살.. 내 식단을 부탁해!',
       firstMessage: `나는 취한다..오늘도 나에게..헛!🥂 낭만이 필요하신가요? 술에 관해 무엇이던 물어보세요!`,
-      keyword: '드렁큰독',
       url: 'drunkenTell',
     },
   };
@@ -199,6 +197,7 @@ const Chat = ({ dog }: { dog: string }) => {
   const handleClickBack = () => {
     router.back();
   };
+  const getDogInfo = chatDogList.filter((info) => info.title === dog)[0];
   const handleSubmitChat = async (value: { chat: string }) => {
     setUserMessages((prev) => {
       return [...prev, value.chat.replace(/\n/g, '<br/>')];
@@ -231,7 +230,7 @@ const Chat = ({ dog }: { dog: string }) => {
           ...prev,
           {
             role: 'assistant',
-            content: `${chatInfo[dog].keyword}이 머리를 너무 써서 어지러운 것 같아요 🥺 새로고침을 해주세요.`,
+            content: `${getDogInfo.keyword}이 머리를 너무 써서 어지러운 것 같아요 🥺 새로고침을 해주세요.`,
           },
         ];
       });
@@ -244,7 +243,6 @@ const Chat = ({ dog }: { dog: string }) => {
   const handleRefresh = () => {
     router.reload();
   };
-
   useEffect(() => {
     if (messageRef.current) {
       messageRef.current.scrollIntoView({ block: 'start' });
@@ -255,7 +253,7 @@ const Chat = ({ dog }: { dog: string }) => {
   }, [conversation, isLoading]);
 
   return (
-    <Chatting>
+    <Chatting color={getDogInfo.color.point}>
       <section className="chat-header">
         <Button className="chat-header__backbtn" onClick={handleClickBack}>
           <MdArrowBackIosNew />
@@ -263,7 +261,7 @@ const Chat = ({ dog }: { dog: string }) => {
         <Button className="refresh-btn" onClick={handleRefresh}>
           <IoIosRefresh />
         </Button>
-        <h2>{dog && chatInfo[dog].keyword}</h2>
+        <h2>{dog && getDogInfo.keyword}</h2>
       </section>
       <section className="chat-window">
         {dog && (
@@ -281,7 +279,7 @@ const Chat = ({ dog }: { dog: string }) => {
                 <Message
                   ref={loadingRef}
                   chatter="assistant"
-                  message={`${chatInfo[dog].keyword}은 귀여운 강아지라서 생각하는 시간이 필요해요!`}
+                  message={`${getDogInfo.keyword}은 귀여운 강아지라서 생각하는 시간이 필요해요!`}
                 />
                 <Orbit size={16} speed={1.5} color="black" />
               </>
