@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { Button } from '@mui/material';
 import { chatDogList } from '@/consts/chatDogInfo';
 import { KakaoAdFit } from '@/components';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 const Container = styled.section`
   .content-list {
     margin: 0 auto;
@@ -15,7 +15,7 @@ const Container = styled.section`
     position: relative;
   }
   @media (max-width: 1024px) {
-    ul {
+    .content-list {
       height: auto;
       flex-direction: column;
     }
@@ -122,14 +122,13 @@ const SideMenu = styled.ul`
   }
 
   @media (max-width: 1024px) {
-    display: flex;
+    display: block;
   }
 `;
 
 export default function Home() {
   const dogRefs = useRef<null[] | HTMLLIElement[]>([]);
   const [currentScroll, setCurrentScroll] = useState<number>(0);
-  const [isMobile, setIsMobile] = useState(false);
   const router = useRouter();
 
   const handleClickBanner = (path: string) => {
@@ -142,11 +141,29 @@ export default function Home() {
       window.scrollTo({
         top: current?.offsetTop,
         left: current?.scrollLeft,
-        behavior: 'smooth',
       });
       setCurrentScroll(idx);
     }
   };
+
+  useEffect(() => {
+    let getScrollHeight: number[];
+    if (dogRefs.current.length > 0) {
+      getScrollHeight = dogRefs.current.map((current) => current?.offsetTop) as number[];
+    }
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      if (getScrollHeight[0] <= scrollY && getScrollHeight[1] - 250 > scrollY) {
+        setCurrentScroll(0);
+      } else if (getScrollHeight[1] - 250 <= scrollY && getScrollHeight[2] - 250 > scrollY) {
+        setCurrentScroll(1);
+      } else if (getScrollHeight[2] - 250 <= scrollY && getScrollHeight[3] - 250 > scrollY) {
+        setCurrentScroll(2);
+      } else if (getScrollHeight[3] - 250 <= scrollY) {
+        setCurrentScroll(3);
+      }
+    });
+  }, []);
 
   return (
     <Container>
