@@ -127,7 +127,7 @@ const Chatting = styled.section<{ color: string }>`
     @media (max-width: 750px) {
       ul {
         li {
-          max-width: 100%;
+          max-width: 90%;
         }
       }
     }
