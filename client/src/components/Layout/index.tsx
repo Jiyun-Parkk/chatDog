@@ -1,12 +1,14 @@
 import React from 'react';
 import { Footer, Kakaoshare } from '@/components';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export const Layout = ({ children }: LayoutProps) => {
+  const router = useRouter();
   return (
     <>
       <Head>
@@ -18,7 +20,7 @@ export const Layout = ({ children }: LayoutProps) => {
         />
       </Head>
       <main>{children}</main>
-      <Kakaoshare />
+      {router.pathname.split('/')[1] !== 'chat' && <Kakaoshare />}
       <Footer />
     </>
   );
