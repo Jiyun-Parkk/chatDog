@@ -4,9 +4,9 @@ import { useRouter } from 'next/router';
 import { Button } from '@mui/material';
 import { chatDogList } from '@/consts/chatDogInfo';
 import { KakaoAdFit } from '@/components';
-
+import { useRef, useState } from 'react';
 const Container = styled.section`
-  ul {
+  .content-list {
     margin: 0 auto;
     width: 100%;
     height: 100vh;
@@ -89,21 +89,90 @@ const DogContentList = styled.li<{ color: string }>`
   }
 `;
 
+const SideMenu = styled.ul`
+  display: none;
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  z-index: 20;
+  border-radius: 100px;
+  width: fit-content;
+  li {
+    border-radius: 20px 0 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px 50px 10px 20px;
+    transform: translateX(25px);
+    color: #fff;
+    text-align: right;
+    cursor: pointer;
+    font-weight: 700;
+    transition: 0.5s all;
+    & + li {
+      margin-top: 5px;
+    }
+    &.active {
+      background: #fff;
+      color: #000;
+      transform: translateX(0);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    display: flex;
+  }
+`;
+
 export default function Home() {
+  const dogRefs = useRef<null[] | HTMLLIElement[]>([]);
+  const [currentScroll, setCurrentScroll] = useState<number>(0);
+  const [isMobile, setIsMobile] = useState(false);
   const router = useRouter();
+
   const handleClickBanner = (path: string) => {
     router.push(path);
   };
+  const dogMenu = chatDogList.map((list) => list.keyword);
+  const handleClickDog = (idx: number) => {
+    if (dogRefs.current[idx]) {
+      const current = dogRefs.current[idx];
+      window.scrollTo({
+        top: current?.offsetTop,
+        left: current?.scrollLeft,
+        behavior: 'smooth',
+      });
+      setCurrentScroll(idx);
+    }
+  };
+
   return (
     <Container>
+      <SideMenu>
+        {dogMenu.map((dog, idx) => (
+          <li
+            className={currentScroll === idx ? 'active' : ''}
+            key={idx}
+            onClick={() => handleClickDog(idx)}
+          >
+            {dog}
+          </li>
+        ))}
+      </SideMenu>
       <section>
-        <ul>
-          {chatDogList.map((list) => (
-            <DogContentList key={list.title} color={list.color.point}>
+        <ul className="content-list">
+          {chatDogList.map((list, idx) => (
+            <DogContentList
+              ref={(list) => (dogRefs.current[idx] = list)}
+              key={list.title}
+              color={list.color.point}
+            >
               <p>{list.sub}</p>
               <div className="main-text">
-                {list.mainText.map((text) => (
-                  <p>{text}</p>
+                {list.mainText.map((text, idx) => (
+                  <p key={idx}>{text}</p>
                 ))}
                 <div className="tagbox">
                   {list.tag.map((tag, idx) => (
