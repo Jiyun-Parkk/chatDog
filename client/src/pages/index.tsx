@@ -92,8 +92,7 @@ const DogContentList = styled.li<{ color: string }>`
 const SideMenu = styled.ul`
   display: none;
   position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 20px;
   right: 0;
   z-index: 20;
   border-radius: 100px;
@@ -104,7 +103,7 @@ const SideMenu = styled.ul`
     justify-content: center;
     align-items: center;
     background: rgba(0, 0, 0, 0.8);
-    padding: 10px 50px 10px 20px;
+    padding: 10px 30px 10px 20px;
     transform: translateX(25px);
     color: #fff;
     text-align: right;
