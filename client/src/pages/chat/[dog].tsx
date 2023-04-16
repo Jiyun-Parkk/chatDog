@@ -75,8 +75,7 @@ const Chatting = styled.section`
           font-size: 0.9rem;
           background: #fff;
           padding: 10px;
-          border-radius: 10px;
-          border-top-left-radius: 0;
+          border-radius: 10px 0 10px 10px;
           position: relative;
           &::before {
             content: '';
@@ -100,11 +99,10 @@ const Chatting = styled.section`
           }
           p {
             background: lightyellow;
+            border-radius: 0px 10px 10px 10px;
             &::before {
               top: 0;
               left: -7px;
-              border-top-left-radius: 10px;
-              border-top-right-radius: 0;
               border-bottom: 8px solid transparent;
               border-top: 8px solid lightyellow;
               border-left: 8px solid transparent;
