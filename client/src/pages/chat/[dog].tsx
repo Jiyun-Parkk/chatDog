@@ -51,16 +51,13 @@ const Chatting = styled.section<{ color: string }>`
     }
   }
   .chat-window {
-    position: fixed;
-    top: 0;
-    left: 0;
     flex: 1;
     display: flex;
     flex-direction: column;
     padding-top: 60px;
     overflow: auto;
     width: 100%;
-    height: calc(100vh - 110px);
+    height: calc(100vh - 180px);
     background: ${({ color }) => color};
     &::-webkit-scrollbar {
       display: none;
@@ -136,8 +133,6 @@ const Chatting = styled.section<{ color: string }>`
     }
   }
   form {
-    position: absolute;
-    bottom: 50px;
     width: 100%;
     display: flex;
     input {
@@ -148,11 +143,6 @@ const Chatting = styled.section<{ color: string }>`
     button {
       color: #000;
     }
-  }
-  aside {
-    width: 100%;
-    position: absolute;
-    bottom: 0;
   }
 `;
 
