@@ -136,6 +136,9 @@ const Chatting = styled.section<{ color: string }>`
   form {
     width: 100%;
     display: flex;
+    position: sticky;
+    bottom: 0;
+    left: 0;
     input {
       width: 100%;
       padding: 18px;
@@ -293,7 +296,6 @@ const Chat = ({ dog }: { dog: string }) => {
           <SlPaperPlane />
         </Button>
       </form>
-
       <KakaoAdFit id="DAN-VuJyc1Y6PLZURbsE" />
     </Chatting>
   );
