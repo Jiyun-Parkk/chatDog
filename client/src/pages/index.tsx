@@ -152,13 +152,13 @@ export default function Home() {
     }
     window.addEventListener('scroll', () => {
       const scrollY = window.scrollY;
-      if (getScrollHeight[0] <= scrollY && getScrollHeight[1] > scrollY) {
+      if (getScrollHeight[0] <= scrollY && getScrollHeight[1] - 200 > scrollY) {
         setCurrentScroll(0);
-      } else if (getScrollHeight[1] <= scrollY && getScrollHeight[2] > scrollY) {
+      } else if (getScrollHeight[1] - 200 <= scrollY && getScrollHeight[2] - 200 > scrollY) {
         setCurrentScroll(1);
-      } else if (getScrollHeight[2] <= scrollY && getScrollHeight[3] > scrollY) {
+      } else if (getScrollHeight[2] - 200 <= scrollY && getScrollHeight[3] - 200 > scrollY) {
         setCurrentScroll(2);
-      } else if (getScrollHeight[3] <= scrollY) {
+      } else if (getScrollHeight[3] - 200 <= scrollY) {
         setCurrentScroll(3);
       }
     });
