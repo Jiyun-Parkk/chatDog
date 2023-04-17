@@ -179,7 +179,7 @@ const Chat = ({ dog }: { dog: string }) => {
       url: 'kcalTell',
     },
     [CHAT.DRUNKEN]: {
-      placeholder: '오늘도 두둑한 뱃살.. 내 식단을 부탁해!',
+      placeholder: '칵테일 조합 추천! 어떤 술이 궁금한가요?',
       firstMessage: `나는 취한다..오늘도 나에게..헛!🥂 낭만이 필요하신가요? 술에 관해 무엇이던 물어보세요!`,
       url: 'drunkenTell',
     },
