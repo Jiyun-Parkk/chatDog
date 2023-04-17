@@ -92,36 +92,37 @@ const DogContentList = styled.li<{ color: string }>`
 const SideMenu = styled.ul`
   display: none;
   position: fixed;
-  top: 20px;
+  top: 0;
   right: 0;
   z-index: 20;
+
   border-radius: 100px;
   width: fit-content;
   li {
-    border-radius: 20px 0 0 20px;
+    border-radius: 0 0 20px 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     background: rgba(0, 0, 0, 0.8);
-    padding: 10px 30px 10px 20px;
-    transform: translateX(25px);
+    width: 70px;
+    padding: 20px 0 10px;
+    transform: translateY(-10px);
     color: #fff;
     text-align: right;
+    font-size: 0.9rem;
     cursor: pointer;
     font-weight: 700;
     transition: 0.5s all;
-    & + li {
-      margin-top: 5px;
-    }
+
     &.active {
-      background: #fff;
+      background: rgba(255, 255, 255, 0.8);
       color: #000;
-      transform: translateX(0);
+      transform: translateY(0);
     }
   }
 
   @media (max-width: 1024px) {
-    display: block;
+    display: flex;
   }
 `;
 
