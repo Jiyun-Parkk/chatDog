@@ -1,5 +1,6 @@
 import { CHAT } from './chatType';
 import fortuneImage from '/public/static/images/fortune.png';
+import kcalImage from '/public/static/images/kcaldog.png';
 
 export const chatDogList = [
   {
@@ -27,7 +28,7 @@ export const chatDogList = [
     mainText: ['식단 짜주는', '건강한 강아지 칼로리독'],
     keyword: '칼로리독',
     button: '다이어트 하러 가기',
-    imgPath: fortuneImage,
+    imgPath: kcalImage,
     tag: ['#다이어트', '#음식', '#요리', '#식단관리', '#체중감량', '#칼로리'],
     explain: [''],
     detailtext: [
