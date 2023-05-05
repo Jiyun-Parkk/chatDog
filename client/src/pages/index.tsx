@@ -95,11 +95,8 @@ const SideMenu = styled.ul`
   top: 0;
   right: 0;
   z-index: 20;
-
-  border-radius: 100px;
   width: fit-content;
   li {
-    border-radius: 0 0 20px 20px;
     display: flex;
     justify-content: center;
     align-items: center;
