@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import { useRouter } from 'next/router';
 import profileDefault from '/public/static/images/fortunedogprofile.png';
 import kcalProfile from '/public/static/images/kcaldogprofile.png';
@@ -15,17 +15,19 @@ interface MessageProps {
 export const Message = React.forwardRef<HTMLLIElement, MessageProps>(
   ({ chatter, message }, ref) => {
     const router = useRouter();
-    const [profileImage, setProfileImage] = useState(profileDefault);
+    const [profileImage, setProfileImage] = useState<StaticImageData>();
     useEffect(() => {
       if (router.query.dog === CHAT.KCAL) {
         setProfileImage(kcalProfile);
       } else if (router.query.dog === CHAT.RECIPE) {
         setProfileImage(recipeProfile);
+      } else {
+        setProfileImage(profileDefault);
       }
     }, []);
     return (
       <li className={chatter} ref={ref}>
-        {chatter === 'assistant' && router.query.dog && (
+        {chatter === 'assistant' && profileImage && (
           <Image src={profileImage} width={40} height={40} alt="profile" priority />
         )}
         <p dangerouslySetInnerHTML={{ __html: message }}></p>
