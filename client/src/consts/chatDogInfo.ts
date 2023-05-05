@@ -1,6 +1,7 @@
 import { CHAT } from './chatType';
 import fortuneImage from '/public/static/images/fortune.png';
 import kcalImage from '/public/static/images/kcaldog.png';
+import recipeImage from '/public/static/images/recipe.png';
 
 export const chatDogList = [
   {
@@ -48,7 +49,7 @@ export const chatDogList = [
     mainText: ['미슐랭 ⭐️⭐️⭐️', '요리하는 강아지 레시피독'],
     keyword: '레시피독',
     button: '최고의 식사하러 가기',
-    imgPath: fortuneImage,
+    imgPath: recipeImage,
     tag: ['#레시피', '#음식', '#요리', '#오늘 뭐먹지?', '#요리노하우', '#강주부', '#요리연구가'],
     explain: [''],
     detailtext: [
@@ -57,7 +58,7 @@ export const chatDogList = [
       '당신의 주방도 이제 미슐랭 ⭐️⭐️⭐️',
     ],
     color: {
-      point: '#2A2F4F',
+      point: '#335F8E',
       active: '#B72C3A',
     },
   },
