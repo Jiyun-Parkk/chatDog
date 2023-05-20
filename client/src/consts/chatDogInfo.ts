@@ -2,6 +2,7 @@ import { CHAT } from './chatType';
 import fortuneImage from '/public/static/images/fortune.png';
 import kcalImage from '/public/static/images/kcaldog.png';
 import recipeImage from '/public/static/images/recipe.png';
+import drunkenImage from '/public/static/images/drunken.png';
 
 export const chatDogList = [
   {
@@ -69,7 +70,7 @@ export const chatDogList = [
     mainText: ['나한테 취하나 안취하나?', '낭만 강아지 드렁큰독'],
     keyword: '드렁큰독',
     button: '한껏 취하러 가기',
-    imgPath: fortuneImage,
+    imgPath: drunkenImage,
     tag: ['#술', '#칵테일', '#안주', '#분위기', '#낭만', '#꿀조합', '#하이볼'],
     explain: [''],
     detailtext: ['안주부터 칵테일까지', '당신의 드렁큰피디아', '낭만 ✨ 술 🍾 나 👸'],

@@ -21,7 +21,7 @@ import { DateTime } from '@/store/dateTime';
 import { GetServerSidePropsContext } from 'next';
 
 const Container = styled.section<{ route: string; color: string }>`
-  width: 40%;
+  width: 90%;
   position: relative;
   margin: 0 auto;
   article {
@@ -84,12 +84,7 @@ const Container = styled.section<{ route: string; color: string }>`
     font-weight: 700;
   }
 
-  @media (max-width: 1024px) {
-    width: 60%;
-  }
-  @media (max-width: 750px) {
-    width: 90%;
-  }
+ 
 `;
 
 const Detail = ({ dog }: { dog: string }) => {

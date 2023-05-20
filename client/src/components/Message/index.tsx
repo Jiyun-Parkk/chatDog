@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import profileDefault from '/public/static/images/fortunedogprofile.png';
 import kcalProfile from '/public/static/images/kcaldogprofile.png';
 import recipeProfile from '/public/static/images/recipedogprofile.png';
+import drunkenprofile from '/public/static/images/drunkenprofile.png';
 import { CHAT } from '@/consts/chatType';
 
 interface MessageProps {
@@ -21,7 +22,9 @@ export const Message = React.forwardRef<HTMLLIElement, MessageProps>(
         setProfileImage(kcalProfile);
       } else if (router.query.dog === CHAT.RECIPE) {
         setProfileImage(recipeProfile);
-      } else {
+      } else if(router.query.dog === CHAT.DRUNKEN) {
+        setProfileImage(drunkenprofile)
+      }else {
         setProfileImage(profileDefault);
       }
     }, []);
