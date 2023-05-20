@@ -148,9 +148,6 @@ export default function Home() {
     if (dogRefs.current.length > 0) {
       getScrollHeight = dogRefs.current.map((current) => current?.offsetTop) as number[];
     }
-    window.addEventListener('resize', () => {
-      window.scrollTo(0, 0);
-    });
     window.addEventListener('scroll', () => {
       const scrollY = window.scrollY;
       if (getScrollHeight[0] <= scrollY && getScrollHeight[1] - 200 > scrollY) {
