@@ -3,6 +3,7 @@ import { NextApiResponse } from 'next';
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from 'openai';
 
 const configuration = new Configuration({
+  organization: 'org-bG0Z4jxiX5KNCMEW67FhOQVj',
   apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
